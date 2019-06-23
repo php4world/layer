@@ -3,7 +3,36 @@ import Layer from './components/alert.vue';
 
 export default {
     install(Vue, options) {
+        let layer = {
+            version: '0.0.1',
+            config: {
+                type: 0,
+                shade: 0.3,
+                fixed: true,
+                move: '.layui-layer-title',
+                title: '&#x4FE1;&#x606F;',
+                offset: 'auto',
+                area: 'auto',
+                closeBtn: 1,
+                time: 0, // 0表示不自动关闭
+                zIndex: 19891014,
+                maxWidth: 360,
+                anim: 0,
+                isOutAnim: true,
+                icon: -1,
+                moveType: 1,
+                resize: true,
+                scrollbar: true, // 是否允许浏览器滚动条
+                tips: 2
+            },
+            type: ['dialog', 'page', 'iframe', 'loading', 'tips']
+        };
+
         Vue.prototype.$layer = {
+            open: (settings = {}) => {
+                Object.assign(layer.config, settings);
+                console.log(layer);
+            },
             alert: function(settings = {}) {
                 let MaskConstructor = Vue.extend(Mask);
                 let MaskInstance = new MaskConstructor({

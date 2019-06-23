@@ -13,7 +13,7 @@
         mounted() {},
         methods: {
             showAlert() {
-                this.$layer.alert({
+                this.$layer.open({
                     title: '提示',
                     content: '<strong>随便一个代码</strong>'
                 });
