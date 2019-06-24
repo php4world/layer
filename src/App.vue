@@ -1,20 +1,22 @@
 <template>
     <div id="app">
-        vLayer
-        <button @click="showAlert">show</button>
+        <div class="container">
+            <h1>vLayer</h1>
+        </div>
+        <button class="btn btn-primary" @click="showAlert">测 试</button>
     </div>
 </template>
 
 <script>
-    import './plugin/test/vlayer.css';
+    import './plugin/layer/components/default.scss';
 
     export default {
         name: 'app',
         mounted() {},
         methods: {
             showAlert() {
-                this.$layer.open({
-                    title: '提示',
+                this.$layer.alert({
+                    type: 2,
                     content: '<strong>随便一个代码</strong>'
                 });
             }

@@ -15,7 +15,7 @@ export default {
                 area: 'auto',
                 closeBtn: 1,
                 time: 0, // 0表示不自动关闭
-                zIndex: 19891014,
+                zIndex: 200000,
                 maxWidth: 360,
                 anim: 0,
                 isOutAnim: true,
@@ -35,10 +35,10 @@ export default {
             },
             alert: function(settings = {}) {
                 let MaskConstructor = Vue.extend(Mask);
-                let MaskInstance = new MaskConstructor({
+                let maskInstance = new MaskConstructor({
                     el: document.createElement('div')
                 });
-                document.body.appendChild(MaskInstance.$el);
+                document.body.appendChild(maskInstance.$el);
 
                 let LayerConstructor = Vue.extend(Layer);
                 let layerInstance = new LayerConstructor({
@@ -70,7 +70,7 @@ export default {
                     }
                     layerInstance.$el.addEventListener('animationend', closeEvent);
 
-                    document.body.removeChild(MaskInstance.$el);
+                    document.body.removeChild(maskInstance.$el);
                     layerInstance.$el.classList.add('layer-anim-close');
                 });
             }
