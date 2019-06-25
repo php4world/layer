@@ -16,8 +16,8 @@
         methods: {
             showAlert() {
                 this.$layer.open({
-                    type: 2,
-                    // shade: false,
+                    type: 0,
+                    area: ['640px', '480px'],
                     offset: 20,
                     content: 'https://www.layui.com'
                 });

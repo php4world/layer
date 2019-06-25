@@ -40,6 +40,8 @@ export default {
             open: (settings = {}) => {
                 Object.assign(layer.config, settings);
 
+                let LayerConstructor, layerInstance, MaskConstructor, maskInstance;
+
                 function execOpenAnim() {
                     layerInstance.$el.one('animationend', () => {
                         layerInstance.$el.classList.remove('layer-anim', 'layer-anim-0' + layer.config.anim);
@@ -55,7 +57,9 @@ export default {
                     });
                     layerInstance.$el.classList.add('layer-anim-close');
 
-                    document.body.removeChild(maskInstance.$el);
+                    if (layer.config.shade) {
+                        document.body.removeChild(maskInstance.$el);
+                    }
                 }
 
                 function setLayerOffset() {
@@ -103,32 +107,23 @@ export default {
                     layerInstance.$el.style.left = offsetLeft + 'px';
                 }
 
-                let LayerConstructor = Vue.extend(Layer);
-                let layerInstance = new LayerConstructor({
+                LayerConstructor = Vue.extend(Layer);
+                layerInstance = new LayerConstructor({
                     el: document.createElement('div'),
-                    data: {
-                        title: layer.config.title,
-                        content: layer.config.content,
-                        type: layer.config.type,
-                        closeBtn: layer.config.closeBtn
-                    },
-                    mixins: [
-                        {
-                            data() {
-                                return layer.config;
-                            }
-                        }
-                    ]
+                    data: layer.config
                 });
 
-                let MaskConstructor = Vue.extend(Mask);
-                let maskInstance = new MaskConstructor({
-                    el: document.createElement('div'),
-                    data: {
-                        shade: layer.config.shade
-                    }
-                });
-                document.body.appendChild(maskInstance.$el);
+                if (layer.config.shade) {
+                    MaskConstructor = Vue.extend(Mask);
+                    maskInstance = new MaskConstructor({
+                        el: document.createElement('div'),
+                        data: {
+                            shade: layer.config.shade,
+                            zIndex: layer.config.zIndex - 1
+                        }
+                    });
+                    document.body.appendChild(maskInstance.$el);
+                }
 
                 execOpenAnim();
 
@@ -136,12 +131,12 @@ export default {
 
                 setLayerOffset();
 
-                layerInstance.$on('clickYes', () => {
+                layerInstance.$on('layerBtn1', () => {
                     layer.config.yes && layer.config.yes();
 
                     execCloseAnim();
                 });
-                layerInstance.$on('clickCancel', () => {
+                layerInstance.$on('layerClose', () => {
                     execCloseAnim();
                 });
             }

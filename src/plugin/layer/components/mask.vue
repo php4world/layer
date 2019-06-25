@@ -5,14 +5,20 @@
 <script>
     export default {
         data() {
-            return {
-                shade: [0.3, '#000']
-            };
+            return {};
         },
         computed: {
             shadeStyle: function() {
-                console.log(this.shade);
-                return `background-color: ${this.shade[1]}; opacity: ${this.shade[0]};`;
+                let bgc = '#000000';
+                let opc = '0.3';
+                if (typeof this.shade === 'number') {
+                    opc = this.shade;
+                } else if (typeof this.shade === 'object') {
+                    opc = this.shade[0];
+                    bgc = this.shade[1];
+                }
+
+                return `background-color: ${bgc}; opacity: ${opc};z-index: ${this.zIndex};`;
             }
         }
     };
