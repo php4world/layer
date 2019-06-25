@@ -1,4 +1,7 @@
 /* common */
+.php4world-layer * {
+    box-sizing: content-box !important;
+}
 .php4world-layer-shade,
 .php4world-layer {
     position: fixed;

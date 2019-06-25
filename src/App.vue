@@ -17,7 +17,7 @@
             showAlert() {
                 this.$layer.open({
                     type: 0,
-                    area: ['640px', '480px'],
+                    title: ['1111', 'font-size:20px;'],
                     offset: 20,
                     content: 'https://www.layui.com'
                 });
