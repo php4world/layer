@@ -15,9 +15,11 @@
         mounted() {},
         methods: {
             showAlert() {
-                this.$layer.alert({
+                this.$layer.open({
                     type: 2,
-                    content: '<strong>随便一个代码</strong>'
+                    // shade: false,
+                    offset: 20,
+                    content: 'https://www.layui.com'
                 });
             }
         }

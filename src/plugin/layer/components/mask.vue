@@ -1,5 +1,5 @@
 <template>
-    <div class="layui-layer-shade" :style="shadeStyle"></div>
+    <div class="php4world-layer-shade" :style="shadeStyle"></div>
 </template>
 
 <script>
@@ -11,6 +11,7 @@
         },
         computed: {
             shadeStyle: function() {
+                console.log(this.shade);
                 return `background-color: ${this.shade[1]}; opacity: ${this.shade[0]};`;
             }
         }
