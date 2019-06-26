@@ -16,10 +16,20 @@
         methods: {
             showAlert() {
                 this.$layer.open({
-                    type: 0,
-                    title: ['1111', 'font-size:20px;'],
                     offset: 20,
-                    content: 'https://www.layui.com'
+                    // btn: '你好',
+                    btn: ['按钮1', '按钮2', '按钮2.1'],
+                    // area: ['600px', '250px'],
+                    content: 'https://www.layui.com',
+                    yes() {
+                        console.log('click yes');
+                    },
+                    btn2() {
+                        console.log('click btn2');
+                    },
+                    btn3() {
+                        console.log('click btn3');
+                    }
                 });
             }
         }

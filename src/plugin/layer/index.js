@@ -22,6 +22,7 @@ export default {
                 title: '&#x4FE1;&#x606F;',
                 offset: 'auto',
                 area: 'auto',
+                btn: false,
                 closeBtn: 1,
                 time: 0, // 0表示不自动关闭
                 zIndex: 200001,
@@ -131,11 +132,24 @@ export default {
 
                 setLayerOffset();
 
-                layerInstance.$on('layerBtn1', () => {
-                    layer.config.yes && layer.config.yes();
+                if (layer.config.btn !== false) {
+                    if (typeof layer.config.btn === 'string') {
+                        layer.config.btn = [layer.config.btn];
+                    }
 
-                    execCloseAnim();
-                });
+                    layer.config.btn.forEach((b, i) => {
+                        layerInstance.$on(`layerBtn${i + 1}`, () => {
+                            if (i === 0) {
+                                layer.config.yes && layer.config.yes();
+                            } else {
+                                layer.config[`btn${i + 1}`] && layer.config[`btn${i + 1}`]();
+                            }
+
+                            execCloseAnim();
+                        });
+                    });
+                }
+
                 layerInstance.$on('layerClose', () => {
                     execCloseAnim();
                 });

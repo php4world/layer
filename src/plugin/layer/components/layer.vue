@@ -12,9 +12,15 @@
         <span class="php4world-layer-setwin" v-if="closeBtn > 0">
             <a class="php4world-layer-ico php4world-layer-close" :class="closeTypeClass" href="javascript:;" @click="close"></a>
         </span>
-        <div class="php4world-layer-btn php4world-layer-btn-" v-if="type === 0">
-            <a class="php4world-layer-btn0" @click="yes">确定</a>
-            <a class="php4world-layer-btn1" @click="close">取消</a>
+        <div class="php4world-layer-btn" v-if="btn">
+            <template v-if="typeof btn === 'string'">
+                <a class="php4world-layer-btn0" @click="execFun(0)">{{btn || '确定'}}</a>
+            </template>
+            <template v-if="typeof btn === 'object'">
+                <template v-for="(button, index) in btn">
+                    <a :class="`php4world-layer-btn${index}`" :key="`btn${index}`" @click="execFun(index)">{{button}}</a>
+                </template>
+            </template>
         </div>
         <span class="php4world-layer-resize"></span>
     </div>
@@ -25,6 +31,8 @@
     export default {
         data() {
             return {};
+        },
+        mounted() {
         },
         computed: {
             layerTypeClass: function() {
@@ -46,9 +54,14 @@
                 return styleList;
             },
             contentStyle: function() {
-                let thatHeight = parseFloat(this.area[1]) - 43 - 47 + 'px';
+                let areaType = typeof this.area === 'object';
 
-                return `height: ${thatHeight}`;
+                if (areaType && this.area[1]) {
+                    let thatHeight = parseFloat(this.area[1]) - 43 - 47 + 'px';
+                    return `height: ${thatHeight}`;
+                } else {
+                    return false;
+                }
             },
             iframeStyle: function() {
                 let thatHeight = parseFloat(this.area[1]) - 43 + 'px';
@@ -60,8 +73,8 @@
             }
         },
         methods: {
-            yes() {
-                this.$emit('layerBtn1');
+            execFun(index) {
+                this.$emit(`layerBtn${index + 1}`);
             },
             close() {
                 this.$emit('layerClose');
