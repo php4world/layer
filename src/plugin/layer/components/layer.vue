@@ -33,6 +33,85 @@
             return {};
         },
         mounted() {
+            if (this.move !== false) {
+                let moveElem = this.$el.querySelector(this.move);
+                let resizeElem = this.$el.querySelector('.php4world-layer-resize');
+                moveElem.style.cursor = 'move';
+
+                let mx, my, rx, ry, rw, rh;
+                let canMove = false;
+                let canResize = false;
+
+                moveElem.onmousedown = (e) => {
+                    e.preventDefault();
+
+                    mx = e.clientX - parseFloat(this.$el.offsetLeft);
+                    my = e.clientY - parseFloat(this.$el.offsetTop);
+
+                    canMove = true;
+                };
+
+                resizeElem.onmousedown = (e) => {
+                    e.preventDefault();
+
+                    rw = this.$el.offsetWidth;
+                    rh = this.$el.offsetHeight;
+                    rx = e.clientX;
+                    ry = e.clientY;
+
+                    canResize = true;
+                };
+
+                document.onmousemove = (e) => {
+                    if (canMove) {
+                        let moveX = e.clientX - mx;
+                        let moveY = e.clientY - my;
+                        let rPos = document.documentElement.clientWidth - this.$el.offsetWidth;
+                        let bPos = document.documentElement.clientHeight - this.$el.offsetHeight;
+
+                        if (!this.moveOut) {
+                            if (moveX < 0) {
+                                moveX = 0;
+                            }
+                            if (moveY < 0) {
+                                moveY = 0;
+                            }
+                            if (moveX > rPos) {
+                                moveX = rPos;
+                            }
+                            if (moveY > bPos) {
+                                moveY = bPos;
+                            }
+                        }
+
+                        this.$el.style.left = moveX + 'px';
+                        this.$el.style.top = moveY + 'px';
+                    }
+
+                    if (canResize) {
+                        // 偏移量
+                        let resizeX = rw + (e.clientX - rx);
+                        let resizeY = rh + (e.clientY - ry);
+
+                        if (resizeX < 260) {
+                            resizeX = 260;
+                        }
+                        if (resizeY < 148) {
+                            resizeY = 148;
+                        }
+
+                        this.$el.style.width = resizeX + 'px';
+                        this.$el.style.height = resizeY + 'px';
+
+                        this.$el.querySelector('.php4world-layer-content').style.height = resizeY - 42 - 42 + 'px';
+                    }
+                };
+
+                document.onmouseup = () => {
+                    canMove = false;
+                    canResize = false;
+                };
+            }
         },
         computed: {
             layerTypeClass: function() {
@@ -57,14 +136,14 @@
                 let areaType = typeof this.area === 'object';
 
                 if (areaType && this.area[1]) {
-                    let thatHeight = parseFloat(this.area[1]) - 43 - 47 + 'px';
+                    let thatHeight = parseFloat(this.area[1]) - 42 - 42 + 'px';
                     return `height: ${thatHeight}`;
                 } else {
                     return false;
                 }
             },
             iframeStyle: function() {
-                let thatHeight = parseFloat(this.area[1]) - 43 + 'px';
+                let thatHeight = parseFloat(this.area[1]) - 42 + 'px';
 
                 return `height: ${thatHeight}`;
             },

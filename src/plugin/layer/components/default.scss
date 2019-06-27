@@ -465,8 +465,9 @@
 
 /* 按钮栏 */
 .php4world-layer-btn {
+    white-space: nowrap;
     text-align: right;
-    padding: 0 15px 12px;
+    padding: 6px 18px;
     pointer-events: auto;
     user-select: none;
     -webkit-user-select: none;
@@ -475,8 +476,8 @@
 .php4world-layer-btn a {
     height: 28px;
     line-height: 28px;
-    margin: 5px 5px 0;
-    padding: 0 15px;
+    // margin: 0 5px 0;
+    padding: 0 14px;
     border: 1px solid #dedede;
     background-color: #fff;
     color: #333;
@@ -484,6 +485,9 @@
     font-weight: 400;
     cursor: pointer;
     text-decoration: none;
+    &:not(:first-child) {
+        margin-left: 5px;
+    }
 }
 
 .php4world-layer-btn a:hover {

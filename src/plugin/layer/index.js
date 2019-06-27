@@ -18,7 +18,7 @@ export default {
                 type: 0,
                 shade: 0.3,
                 fixed: true,
-                move: '.layui-layer-title',
+                move: '.php4world-layer-title',
                 title: '&#x4FE1;&#x606F;',
                 offset: 'auto',
                 area: 'auto',
@@ -31,6 +31,7 @@ export default {
                 isOutAnim: true,
                 icon: -1,
                 moveType: 1,
+                moveOut: false,
                 resize: true,
                 scrollbar: true, // 是否允许浏览器滚动条
                 tips: 2
