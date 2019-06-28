@@ -37,19 +37,13 @@
             showAlert() {
                 this.$layer.open({
                     offset: 20,
-                    // btn: '你好',
-                    btn: ['按钮1', '按钮2', '按钮2.1'],
-                    // area: ['600px', '250px'],
-                    content: 'https://www.layui.com',
-                    scrollbar: false,
-                    yes() {
-                        console.log('click yes');
-                    },
-                    btn2() {
-                        console.log('click btn2');
-                    },
-                    btn3() {
-                        console.log('click btn3');
+                    btn: ['按钮1', '按钮2'],
+                    btnAlign: 'c',
+                    content: '第一个',
+                    yes: () => {
+                        this.$layer.open({
+                            content: '第一个的第二个'
+                        });
                     }
                 });
             }

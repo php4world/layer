@@ -1,5 +1,5 @@
 <template>
-    <div class="php4world-layer-shade" :style="shadeStyle"></div>
+    <div class="php4world-layer-shade" :style="shadeStyle" @click="close"></div>
 </template>
 
 <script>
@@ -19,6 +19,13 @@
                 }
 
                 return `background-color: ${bgc}; opacity: ${opc};z-index: ${this.zIndex};`;
+            }
+        },
+        methods: {
+            close() {
+                if (this.shadeClose) {
+                    this.$emit('onShadeClose');
+                }
             }
         }
     };

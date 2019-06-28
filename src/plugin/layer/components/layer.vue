@@ -2,7 +2,7 @@
     <div class="php4world-layer" :class="layerTypeClass" :style="layerTypeStyle">
         <div class="php4world-layer-title" v-if="title !== false" v-html="typeof title === 'object' ? title[0] : title" :style="typeof title === 'object' ? title[1] : ''"></div>
         <template v-if="type !== 2">
-            <div class="php4world-layer-content" :style="contentStyle" v-html="content"></div>
+            <div class="php4world-layer-content" :class="{'php4world-layer-padding': icon > -1}" :style="contentStyle" v-html="rContent"></div>
         </template>
         <template v-else>
             <div class="php4world-layer-content">
@@ -10,15 +10,15 @@
             </div>
         </template>
         <span class="php4world-layer-setwin" v-if="closeBtn > 0">
-            <a class="php4world-layer-ico php4world-layer-close" :class="closeTypeClass" href="javascript:;" @click="close"></a>
+            <a class="php4world-layer-ico php4world-layer-close" :class="closeTypeClass" href="javascript:;" @click="cancelFun"></a>
         </span>
-        <div class="php4world-layer-btn" v-if="btn">
+        <div class="php4world-layer-btn" :class="{'php4world-layer-btn-l': btnAlign === 'l', 'php4world-layer-btn-c': btnAlign === 'c'}" v-if="btn">
             <template v-if="typeof btn === 'string'">
-                <a class="php4world-layer-btn0" @click="execFun(0)">{{btn || '确定'}}</a>
+                <a class="php4world-layer-btn0" @click="execFun(0)" v-html="btn || '确定'"></a>
             </template>
             <template v-if="typeof btn === 'object'">
                 <template v-for="(button, index) in btn">
-                    <a :class="`php4world-layer-btn${index}`" :key="`btn${index}`" @click="execFun(index)">{{button}}</a>
+                    <a :class="`php4world-layer-btn${index}`" :key="`btn${index}`" @click="execFun(index)" v-html="button"></a>
                 </template>
             </template>
         </div>
@@ -28,6 +28,7 @@
 
 <script>
     const typeList = ['dialog', 'page', 'iframe', 'loading', 'tips'];
+
     export default {
         data() {
             return {};
@@ -36,9 +37,10 @@
             let mx, my, rx, ry, rw, rh;
             let canMove = false;
             let canResize = false;
+            let moveElem, resizeElem;
 
             if (this.move !== false) {
-                let moveElem = this.$el.querySelector(this.move);
+                moveElem = this.$el.querySelector(this.move);
                 moveElem.style.cursor = 'move';
 
                 moveElem.onmousedown = (e) => {
@@ -51,7 +53,7 @@
                 };
             }
             if (this.resize !== false) {
-                let resizeElem = this.$el.querySelector('.php4world-layer-resize');
+                resizeElem = this.$el.querySelector('.php4world-layer-resize');
 
                 resizeElem.onmousedown = (e) => {
                     e.preventDefault();
@@ -65,7 +67,7 @@
                 };
             }
 
-            document.onmousemove = (e) => {
+            moveElem.onmousemove = (e) => {
                 if (canMove) {
                     let moveX = e.clientX - mx;
                     let moveY = e.clientY - my;
@@ -90,7 +92,8 @@
                     this.$el.style.left = moveX + 'px';
                     this.$el.style.top = moveY + 'px';
                 }
-
+            };
+            resizeElem.onmousemove = (e) => {
                 if (canResize) {
                     // 偏移量
                     let resizeX = rw + (e.clientX - rx);
@@ -110,8 +113,10 @@
                 }
             };
 
-            document.onmouseup = () => {
+            moveElem.onmouseup = () => {
                 canMove = false;
+            };
+            resizeElem.onmouseup = () => {
                 canResize = false;
             };
         },
@@ -144,6 +149,10 @@
                     return false;
                 }
             },
+            rContent: function() {
+                let c = this.icon > -1 ? `<i class="php4world-layer-ico php4world-layer-ico${this.icon}"></i>` : '';
+                return c + this.content;
+            },
             iframeStyle: function() {
                 let thatHeight = parseFloat(this.area[1]) - 42 + 'px';
 
@@ -155,10 +164,10 @@
         },
         methods: {
             execFun(index) {
-                this.$emit(`layerBtn${index + 1}`);
+                this.$emit(`onLayerBtn${index + 1}`);
             },
-            close() {
-                this.$emit('layerClose');
+            cancelFun() {
+                this.$emit('onLayerCancel');
             }
         }
     };

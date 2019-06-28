@@ -17,15 +17,17 @@ export default {
             config: {
                 type: 0,
                 shade: 0.3,
+                shadeClose: false,
                 fixed: true,
                 move: '.php4world-layer-title',
                 title: '&#x4FE1;&#x606F;',
                 offset: 'auto',
                 area: 'auto',
-                btn: false,
+                btn: ['&#x786E;&#x5B9A;', '&#x53D6;&#x6D88;'],
+                btnAlign: 'r',
                 closeBtn: 1,
                 time: 0, // 0表示不自动关闭
-                zIndex: 200001,
+                zIndex: 19920215,
                 maxWidth: 360,
                 anim: 0,
                 isOutAnim: true,
@@ -38,17 +40,20 @@ export default {
             }
         };
 
+        let openTimes = 0;
+
         Vue.prototype.$layer = {
             open: (settings = {}) => {
-                Object.assign(layer.config, settings);
+                layer.config.zIndex += openTimes;
+                let configs = Object.assign({}, layer.config, settings);
 
                 let LayerConstructor, layerInstance, MaskConstructor, maskInstance;
 
                 function execOpenAnim() {
                     layerInstance.$el.one('animationend', () => {
-                        layerInstance.$el.classList.remove('layer-anim', 'layer-anim-0' + layer.config.anim);
+                        layerInstance.$el.classList.remove('layer-anim', 'layer-anim-0' + configs.anim);
                     });
-                    layerInstance.$el.classList.add('layer-anim', 'layer-anim-0' + layer.config.anim);
+                    layerInstance.$el.classList.add('layer-anim', 'layer-anim-0' + configs.anim);
                 }
 
                 function execCloseAnim() {
@@ -59,53 +64,55 @@ export default {
                     });
                     layerInstance.$el.classList.add('layer-anim-close');
 
-                    if (layer.config.shade) {
+                    if (configs.shade) {
                         document.body.removeChild(maskInstance.$el);
                     }
 
-                    if (layer.config.scrollbar === false) {
+                    if (configs.scrollbar === false) {
                         document.documentElement.style.overflow = '';
                     }
+
+                    configs.end && configs.end();
                 }
 
                 function setLayerOffset() {
                     let area = [layerInstance.$el.offsetWidth, layerInstance.$el.offsetHeight];
                     let doc = [document.documentElement.clientWidth, document.documentElement.clientHeight];
-                    let type = typeof layer.config.offset === 'object';
+                    let type = typeof configs.offset === 'object';
 
                     let offsetTop = (doc[1] - area[1]) / 2;
                     let offsetLeft = (doc[0] - area[0]) / 2;
 
                     if (type) {
-                        offsetTop = layer.config.offset[0];
-                        offsetLeft = layer.config.offset[1];
-                    } else if (layer.config.offset !== 'auto') {
-                        if (layer.config.offset === 't') {
+                        offsetTop = configs.offset[0];
+                        offsetLeft = configs.offset[1];
+                    } else if (configs.offset !== 'auto') {
+                        if (configs.offset === 't') {
                             offsetTop = 0;
-                        } else if (layer.config.offset === 'r') {
+                        } else if (configs.offset === 'r') {
                             offsetLeft = doc[0] - area[0];
-                        } else if (layer.config.offset === 'b') {
+                        } else if (configs.offset === 'b') {
                             offsetTop = doc[1] - area[1];
-                        } else if (layer.config.offset === 'l') {
+                        } else if (configs.offset === 'l') {
                             offsetLeft = 0;
-                        } else if (layer.config.offset === 'lt') {
+                        } else if (configs.offset === 'lt') {
                             offsetTop = 0;
                             offsetLeft = 0;
-                        } else if (layer.config.offset === 'lb') {
+                        } else if (configs.offset === 'lb') {
                             offsetTop = doc[1] - area[1];
                             offsetLeft = 0;
-                        } else if (layer.config.offset === 'rt') {
+                        } else if (configs.offset === 'rt') {
                             offsetTop = 0;
                             offsetLeft = doc[0] - area[0];
-                        } else if (layer.config.offset === 'rb') {
+                        } else if (configs.offset === 'rb') {
                             offsetTop = doc[1] - area[1];
                             offsetLeft = doc[0] - area[0];
                         } else {
-                            offsetTop = layer.config.offset;
+                            offsetTop = configs.offset;
                         }
                     }
 
-                    if (!layer.config.fixed) {
+                    if (!configs.fixed) {
                         // 非fixed布局
                     }
 
@@ -116,22 +123,33 @@ export default {
                 LayerConstructor = Vue.extend(Layer);
                 layerInstance = new LayerConstructor({
                     el: document.createElement('div'),
-                    data: layer.config
+                    data: configs
                 });
+                layerInstance.$el.id = `php4world-layer${openTimes}`;
+                layerInstance.$el.times = openTimes;
 
-                if (layer.config.shade) {
+                if (configs.shade) {
                     MaskConstructor = Vue.extend(Mask);
                     maskInstance = new MaskConstructor({
                         el: document.createElement('div'),
                         data: {
-                            shade: layer.config.shade,
-                            zIndex: layer.config.zIndex - 1
+                            shade: configs.shade,
+                            shadeClose: configs.shadeClose,
+                            zIndex: configs.zIndex - 1
                         }
                     });
+                    maskInstance.$el.id = `php4world-layer-shade${openTimes}`;
+                    maskInstance.$el.times = openTimes;
                     document.body.appendChild(maskInstance.$el);
+
+                    maskInstance.$once('onShadeClose', () => {
+                        configs.cancel && configs.cancel();
+
+                        execCloseAnim();
+                    });
                 }
 
-                if (layer.config.scrollbar === false) {
+                if (configs.scrollbar === false) {
                     document.documentElement.style.overflow = 'hidden';
                 }
 
@@ -141,17 +159,19 @@ export default {
 
                 setLayerOffset();
 
-                if (layer.config.btn !== false) {
-                    if (typeof layer.config.btn === 'string') {
-                        layer.config.btn = [layer.config.btn];
+                configs.success && configs.success();
+
+                if (configs.btn !== false) {
+                    if (typeof configs.btn === 'string') {
+                        configs.btn = [configs.btn];
                     }
 
-                    layer.config.btn.forEach((b, i) => {
-                        layerInstance.$on(`layerBtn${i + 1}`, () => {
+                    configs.btn.forEach((b, i) => {
+                        layerInstance.$once(`onLayerBtn${i + 1}`, () => {
                             if (i === 0) {
-                                layer.config.yes && layer.config.yes();
+                                configs.yes && configs.yes();
                             } else {
-                                layer.config[`btn${i + 1}`] && layer.config[`btn${i + 1}`]();
+                                configs[`btn${i + 1}`] && configs[`btn${i + 1}`]();
                             }
 
                             execCloseAnim();
@@ -159,9 +179,19 @@ export default {
                     });
                 }
 
-                layerInstance.$on('layerClose', () => {
+                layerInstance.$once('onLayerCancel', () => {
+                    configs.cancel && configs.cancel();
+
                     execCloseAnim();
                 });
+
+                if (configs.time > 0) {
+                    setTimeout(() => {
+                        execCloseAnim();
+                    }, configs.time);
+                }
+
+                openTimes += 2;
             }
         };
     }
