@@ -62,6 +62,10 @@ export default {
                     if (layer.config.shade) {
                         document.body.removeChild(maskInstance.$el);
                     }
+
+                    if (layer.config.scrollbar === false) {
+                        document.documentElement.style.overflow = '';
+                    }
                 }
 
                 function setLayerOffset() {
@@ -125,6 +129,10 @@ export default {
                         }
                     });
                     document.body.appendChild(maskInstance.$el);
+                }
+
+                if (layer.config.scrollbar === false) {
+                    document.documentElement.style.overflow = 'hidden';
                 }
 
                 execOpenAnim();

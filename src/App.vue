@@ -2,8 +2,28 @@
     <div id="app">
         <div class="container">
             <h1>vLayer</h1>
+            <button class="btn btn-primary" @click="showAlert">测 试</button>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
+            <h1>vLayer</h1>
         </div>
-        <button class="btn btn-primary" @click="showAlert">测 试</button>
     </div>
 </template>
 
@@ -21,6 +41,7 @@
                     btn: ['按钮1', '按钮2', '按钮2.1'],
                     // area: ['600px', '250px'],
                     content: 'https://www.layui.com',
+                    scrollbar: false,
                     yes() {
                         console.log('click yes');
                     },

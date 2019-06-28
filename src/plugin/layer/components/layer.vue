@@ -22,7 +22,7 @@
                 </template>
             </template>
         </div>
-        <span class="php4world-layer-resize"></span>
+        <span class="php4world-layer-resize" v-if="resize"></span>
     </div>
 </template>
 
@@ -33,14 +33,13 @@
             return {};
         },
         mounted() {
+            let mx, my, rx, ry, rw, rh;
+            let canMove = false;
+            let canResize = false;
+
             if (this.move !== false) {
                 let moveElem = this.$el.querySelector(this.move);
-                let resizeElem = this.$el.querySelector('.php4world-layer-resize');
                 moveElem.style.cursor = 'move';
-
-                let mx, my, rx, ry, rw, rh;
-                let canMove = false;
-                let canResize = false;
 
                 moveElem.onmousedown = (e) => {
                     e.preventDefault();
@@ -50,6 +49,9 @@
 
                     canMove = true;
                 };
+            }
+            if (this.resize !== false) {
+                let resizeElem = this.$el.querySelector('.php4world-layer-resize');
 
                 resizeElem.onmousedown = (e) => {
                     e.preventDefault();
@@ -61,57 +63,57 @@
 
                     canResize = true;
                 };
-
-                document.onmousemove = (e) => {
-                    if (canMove) {
-                        let moveX = e.clientX - mx;
-                        let moveY = e.clientY - my;
-                        let rPos = document.documentElement.clientWidth - this.$el.offsetWidth;
-                        let bPos = document.documentElement.clientHeight - this.$el.offsetHeight;
-
-                        if (!this.moveOut) {
-                            if (moveX < 0) {
-                                moveX = 0;
-                            }
-                            if (moveY < 0) {
-                                moveY = 0;
-                            }
-                            if (moveX > rPos) {
-                                moveX = rPos;
-                            }
-                            if (moveY > bPos) {
-                                moveY = bPos;
-                            }
-                        }
-
-                        this.$el.style.left = moveX + 'px';
-                        this.$el.style.top = moveY + 'px';
-                    }
-
-                    if (canResize) {
-                        // 偏移量
-                        let resizeX = rw + (e.clientX - rx);
-                        let resizeY = rh + (e.clientY - ry);
-
-                        if (resizeX < 260) {
-                            resizeX = 260;
-                        }
-                        if (resizeY < 148) {
-                            resizeY = 148;
-                        }
-
-                        this.$el.style.width = resizeX + 'px';
-                        this.$el.style.height = resizeY + 'px';
-
-                        this.$el.querySelector('.php4world-layer-content').style.height = resizeY - 42 - 42 + 'px';
-                    }
-                };
-
-                document.onmouseup = () => {
-                    canMove = false;
-                    canResize = false;
-                };
             }
+
+            document.onmousemove = (e) => {
+                if (canMove) {
+                    let moveX = e.clientX - mx;
+                    let moveY = e.clientY - my;
+                    let rPos = document.documentElement.clientWidth - this.$el.offsetWidth;
+                    let bPos = document.documentElement.clientHeight - this.$el.offsetHeight;
+
+                    if (!this.moveOut) {
+                        if (moveX < 0) {
+                            moveX = 0;
+                        }
+                        if (moveY < 0) {
+                            moveY = 0;
+                        }
+                        if (moveX > rPos) {
+                            moveX = rPos;
+                        }
+                        if (moveY > bPos) {
+                            moveY = bPos;
+                        }
+                    }
+
+                    this.$el.style.left = moveX + 'px';
+                    this.$el.style.top = moveY + 'px';
+                }
+
+                if (canResize) {
+                    // 偏移量
+                    let resizeX = rw + (e.clientX - rx);
+                    let resizeY = rh + (e.clientY - ry);
+
+                    if (resizeX < 260) {
+                        resizeX = 260;
+                    }
+                    if (resizeY < 148) {
+                        resizeY = 148;
+                    }
+
+                    this.$el.style.width = resizeX + 'px';
+                    this.$el.style.height = resizeY + 'px';
+
+                    this.$el.querySelector('.php4world-layer-content').style.height = resizeY - 42 - 42 + 'px';
+                }
+            };
+
+            document.onmouseup = () => {
+                canMove = false;
+                canResize = false;
+            };
         },
         computed: {
             layerTypeClass: function() {
