@@ -1,6 +1,5 @@
 import Mask from './components/mask.vue';
 import Layer from './components/layer.vue';
-// import Layer from './components/layer.js';
 
 Element.prototype.one = function(type, callback) {
     let handle = function() {
@@ -41,10 +40,23 @@ export default {
         };
 
         let openTimes = 0;
+        let openedLayers = [];
 
         Vue.prototype.$layer = {
             open: (settings = {}) => {
+                if (openedLayers.length > 0) {
+                    for (var i = 0; i < openedLayers.length; i++) {
+                        if (openedLayers[i].maskInstance) {
+                            document.body.removeChild(openedLayers[i].maskInstance.$el);
+                        }
+                        document.body.removeChild(openedLayers[i].layerInstance.$el);
+                    }
+
+                    openedLayers = [];
+                }
+
                 layer.config.zIndex += openTimes;
+
                 let configs = Object.assign({}, layer.config, settings);
 
                 let LayerConstructor, layerInstance, MaskConstructor, maskInstance;
@@ -73,6 +85,8 @@ export default {
                     }
 
                     configs.end && configs.end();
+
+                    openedLayers = [];
                 }
 
                 function setLayerOffset() {
@@ -147,6 +161,10 @@ export default {
 
                         execCloseAnim();
                     });
+
+                    maskInstance.$el.one('click', () => {
+                        console.log('clicked');
+                    });
                 }
 
                 if (configs.scrollbar === false) {
@@ -178,6 +196,8 @@ export default {
                         });
                     });
                 }
+
+                openedLayers.push({layerInstance, maskInstance});
 
                 layerInstance.$once('onLayerCancel', () => {
                     configs.cancel && configs.cancel();
