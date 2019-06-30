@@ -35,8 +35,9 @@
         mounted() {},
         methods: {
             showAlert() {
-                this.$layer.open({content: '你好', shade: false});
-                this.$layer.open({content: '你好'});
+                let layer = this.$layer.open({content: '你好', shade: false});
+                console.log(layer);
+                // this.$layer.open({content: '你好'});
                 // this.$layer.open({
                 //     offset: 20,
                 //     btn: ['按钮1', '按钮2'],

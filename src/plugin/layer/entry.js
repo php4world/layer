@@ -1,10 +1,11 @@
 import Mask from './components/mask.vue';
 import Layer from './components/layer.vue';
+import './prototype';
 
 export default {
     install(Vue, options) {
         // 实例池
-        let instancesPool = [];
+        let instances = [];
 
         const layer = {
             version: '0.0.1',
@@ -31,6 +32,17 @@ export default {
                 resize: true,
                 scrollbar: true,
                 tips: 2
+            }
+        };
+
+        // 当前索引
+        let layerIndex = 0;
+
+        Vue.prototype.$layer = {
+            open(settings = {}) {
+                this.configs = Object.assign({}, layer.config, settings);
+
+                return this;
             }
         };
     }
