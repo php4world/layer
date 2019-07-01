@@ -1,13 +1,14 @@
 import Mask from './components/mask.vue';
 import Layer from './components/layer.vue';
 import './prototype';
+import './components/default.scss';
 
 export default {
     install(Vue, options) {
         // 实例池
         let instances = {};
         // 版本号
-        const version = '0.0.1';
+        const version = '0.1.2';
         // 默认配置
         const defConf = {
             type: 0,
@@ -147,21 +148,12 @@ export default {
                     data: {
                         ...config,
                         index: this.index,
-                        drag: {
-                            mx: 0,
-                            my: 0,
-                            rx: 0,
-                            ry: 0,
-                            rw: 0,
-                            rh: 0,
-                            canMove: false,
-                            canResize: false
-                        }
+                        drag: {mx: 0, my: 0, rx: 0, ry: 0, rw: 0, rh: 0, canMove: false, canResize: false}
                     },
                     mounted() {
                         let moveElem, resizeElem;
 
-                        if (this.move !== false) {
+                        if (this.move) {
                             moveElem = this.$el.querySelector(this.move);
                             moveElem.style.cursor = 'move';
 
@@ -174,7 +166,7 @@ export default {
                                 this.drag.canMove = true;
                             };
                         }
-                        if (this.resize !== false) {
+                        if (this.resize) {
                             resizeElem = this.$el.querySelector('.php4world-layer-resize');
 
                             resizeElem.onmousedown = (e) => {

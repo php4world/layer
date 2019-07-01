@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import Layer from './plugin/layer';
+import Layer from '@php4world/layer';
 
 Vue.config.productionTip = false;
 

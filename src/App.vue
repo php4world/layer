@@ -28,14 +28,14 @@
 </template>
 
 <script>
-    import './plugin/layer/components/default.scss';
-
     export default {
         name: 'app',
         mounted() {
             // this.$layer.open({content: '你好', shade: false});
             this.$layer.open({
-                content: '你好'
+                content: '你好',
+                offset: 5,
+                move: false
             });
         },
         methods: {

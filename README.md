@@ -1,29 +1,25 @@
-# vlayer
+# Vue Layer
 
-## Project setup
-```
-yarn install
-```
+`Vue Layer` 是以 `layer.js` 为参照（主要是样式），使用 `Vue` 实现了和 `layer.js` 相同配置参数的Web弹层组件。
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+### 使用方式
 
-### Compiles and minifies for production
-```
-yarn run build
+##### yarn
+
+```nginx
+yarn add @php4world/layer
 ```
 
-### Run your tests
-```
-yarn run test
+##### npm
+
+```nginx
+npm i @php4world/layer
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
+##### 引入插件
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```javascript
+// main.js
+import Layer from '@php4world/layer';
+Vue.use(Layer);
+```

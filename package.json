@@ -1,13 +1,26 @@
 {
-  "name": "vlayer",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@php4world/layer",
+  "version": "0.1.2",
+  "description": "Vue layer",
+  "keyword": "vue-layer",
+  "author": "php4world",
+  "license": "MIT",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "plugin": "vue-cli-service build --target lib --name layer source/index.js"
   },
+  "main": "dist/layer.umd.min.js",
+  "files": [
+    "dist/*",
+    "source/components/*",
+    "source/index.js",
+    "source/prototype.js"
+  ],
   "dependencies": {
+    "@php4world/layer": "^0.1.0",
     "core-js": "^2.6.5",
     "vue": "^2.6.10"
   },
@@ -22,5 +35,9 @@
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/php4world/layer"
   }
 }
