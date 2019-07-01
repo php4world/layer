@@ -35,7 +35,10 @@
             this.$layer.open({
                 content: '你好',
                 offset: 5,
-                move: false
+                move: false,
+                yes() {
+                    console.log(1);
+                }
             });
         },
         methods: {

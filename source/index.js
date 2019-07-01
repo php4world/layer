@@ -8,7 +8,7 @@ export default {
         // 实例池
         let instances = {};
         // 版本号
-        const version = '0.1.2';
+        const version = '0.1.3';
         // 默认配置
         const defConf = {
             type: 0,

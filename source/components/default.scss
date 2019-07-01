@@ -45,11 +45,11 @@
 }
 
 .php4world-layer-load {
-    background: url(loading-1.gif) #eee center center no-repeat;
+    background: url(./loading-1.gif) #eee center center no-repeat;
 }
 
 .php4world-layer-ico {
-    background: url(icon.png) no-repeat;
+    background: url(./icon.png) no-repeat;
 }
 
 .php4world-layer-dialog .php4world-layer-ico,
@@ -621,20 +621,20 @@
 .php4world-layer-loading .php4world-layer-content {
     width: 60px;
     height: 24px;
-    background: url(loading-0.gif) no-repeat;
+    background: url(./loading-0.gif) no-repeat;
 }
 
 .php4world-layer-loading .php4world-layer-loading1 {
     width: 37px;
     height: 37px;
-    background: url(loading-1.gif) no-repeat;
+    background: url(./loading-1.gif) no-repeat;
 }
 
 .php4world-layer-loading .php4world-layer-loading2,
 .php4world-layer-ico16 {
     width: 32px;
     height: 32px;
-    background: url(loading-2.gif) no-repeat;
+    background: url(./loading-2.gif) no-repeat;
 }
 
 .php4world-layer-tips {
@@ -751,7 +751,7 @@
  */
 
 .php4world-layer-iconext {
-    background: url(icon-ext.png) no-repeat;
+    background: url(./icon-ext.png) no-repeat;
 }
 
 /* prompt模式 */
