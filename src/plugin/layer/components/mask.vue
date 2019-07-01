@@ -18,7 +18,7 @@
                     bgc = this.shade[1];
                 }
 
-                return `background-color: ${bgc}; opacity: ${opc};z-index: ${this.zIndex};`;
+                return `background-color: ${bgc}; opacity: ${opc};z-index: ${this.zIndex - 1};`;
             }
         },
         methods: {

@@ -1,217 +1,280 @@
 import Mask from './components/mask.vue';
 import Layer from './components/layer.vue';
-
-Element.prototype.one = function(type, callback) {
-    let handle = function() {
-        callback = callback.call(this);
-        this.removeEventListener(type, handle);
-    };
-    this.addEventListener(type, handle);
-};
+import './prototype';
 
 export default {
     install(Vue, options) {
-        let layer = {
-            version: '0.0.1',
-            config: {
-                type: 0,
-                shade: 0.3,
-                shadeClose: false,
-                fixed: true,
-                move: '.php4world-layer-title',
-                title: '&#x4FE1;&#x606F;',
-                offset: 'auto',
-                area: 'auto',
-                btn: ['&#x786E;&#x5B9A;', '&#x53D6;&#x6D88;'],
-                btnAlign: 'r',
-                closeBtn: 1,
-                time: 0, // 0表示不自动关闭
-                zIndex: 19920215,
-                maxWidth: 360,
-                anim: 0,
-                isOutAnim: true,
-                icon: -1,
-                moveType: 1,
-                moveOut: false,
-                resize: true,
-                scrollbar: true, // 是否允许浏览器滚动条
-                tips: 2
+        // 实例池
+        let instances = {};
+        // 版本号
+        const version = '0.0.1';
+        // 默认配置
+        const defConf = {
+            type: 0,
+            shade: 0.3,
+            shadeClose: false,
+            fixed: true,
+            move: '.php4world-layer-title',
+            title: '&#x4FE1;&#x606F;',
+            offset: 'auto',
+            area: 'auto',
+            btn: ['&#x786E;&#x5B9A;', '&#x53D6;&#x6D88;'],
+            btnAlign: 'r',
+            closeBtn: 1,
+            time: 0,
+            zIndex: 19920215,
+            maxWidth: 360,
+            anim: 0,
+            isOutAnim: true,
+            icon: -1,
+            moveType: 1,
+            moveOut: false,
+            resize: true,
+            scrollbar: true,
+            tips: 2
+        };
+        // 设置位置
+        function offset(el, settings) {
+            let area = [el.offsetWidth, el.offsetHeight];
+            let type = typeof settings.offset === 'object';
+
+            let offsetTop = (document.documentElement.clientHeight - area[1]) / 2;
+            let offsetLeft = (document.documentElement.clientWidth - area[0]) / 2;
+
+            if (type) {
+                offsetTop = settings.offset[0];
+                offsetLeft = settings.offset[1];
+            } else if (settings.offset !== 'auto') {
+                if (settings.offset === 't') {
+                    offsetTop = 0;
+                } else if (settings.offset === 'r') {
+                    offsetLeft = document.documentElement.clientWidth - area[0];
+                } else if (settings.offset === 'b') {
+                    offsetTop = document.documentElement.clientHeight - area[1];
+                } else if (settings.offset === 'l') {
+                    offsetLeft = 0;
+                } else if (settings.offset === 'lt') {
+                    offsetTop = 0;
+                    offsetLeft = 0;
+                } else if (settings.offset === 'lb') {
+                    offsetTop = document.documentElement.clientHeight - area[1];
+                    offsetLeft = 0;
+                } else if (settings.offset === 'rt') {
+                    offsetTop = 0;
+                    offsetLeft = document.documentElement.clientWidth - area[0];
+                } else if (settings.offset === 'rb') {
+                    offsetTop = document.documentElement.clientHeight - area[1];
+                    offsetLeft = document.documentElement.clientWidth - area[0];
+                } else {
+                    offsetTop = settings.offset;
+                }
+            }
+
+            if (!settings.fixed) {
+                // todo 非fixed布局
+            }
+
+            el.style.top = offsetTop + 'px';
+            el.style.left = offsetLeft + 'px';
+        }
+        // 打开动画
+        function animOpen(el, anim) {
+            el.one('animationend', () => {
+                el.classList.remove('layer-anim', `layer-anim-0${anim}`);
+            });
+            el.classList.add('layer-anim', `layer-anim-0${anim}`);
+        }
+
+        document.onmousemove = (e) => {
+            for (let prop in instances) {
+                if (instances[prop].layer.drag.canMove) {
+                    let moveX = e.clientX - instances[prop].layer.drag.mx;
+                    let moveY = e.clientY - instances[prop].layer.drag.my;
+                    let rPos = document.documentElement.clientWidth - instances[prop].layer.$el.offsetWidth;
+                    let bPos = document.documentElement.clientHeight - instances[prop].layer.$el.offsetHeight;
+                    if (!instances[prop].layer.moveOut) {
+                        if (moveX < 0) {
+                            moveX = 0;
+                        }
+                        if (moveY < 0) {
+                            moveY = 0;
+                        }
+                        if (moveX > rPos) {
+                            moveX = rPos;
+                        }
+                        if (moveY > bPos) {
+                            moveY = bPos;
+                        }
+                    }
+                    instances[prop].layer.$el.style.left = moveX + 'px';
+                    instances[prop].layer.$el.style.top = moveY + 'px';
+                }
+                if (instances[prop].layer.drag.canResize) {
+                    let resizeX = instances[prop].layer.drag.rw + (e.clientX - instances[prop].layer.drag.rx);
+                    let resizeY = instances[prop].layer.drag.rh + (e.clientY - instances[prop].layer.drag.ry);
+                    if (resizeX < 260) {
+                        resizeX = 260;
+                    }
+                    if (resizeY < 148) {
+                        resizeY = 148;
+                    }
+                    instances[prop].layer.$el.style.width = resizeX + 'px';
+                    instances[prop].layer.$el.style.height = resizeY + 'px';
+                    instances[prop].layer.$el.querySelector('.php4world-layer-content').style.height = resizeY - 42 - 42 + 'px';
+                }
+            }
+        };
+        document.onmouseup = () => {
+            for (let prop in instances) {
+                instances[prop].layer.drag.canMove = false;
+                instances[prop].layer.drag.canResize = false;
             }
         };
 
-        let openTimes = 0;
-        let openedLayers = [];
-
         Vue.prototype.$layer = {
-            open: (settings = {}) => {
-                if (openedLayers.length > 0) {
-                    for (var i = 0; i < openedLayers.length; i++) {
-                        if (openedLayers[i].maskInstance) {
-                            document.body.removeChild(openedLayers[i].maskInstance.$el);
-                        }
-                        document.body.removeChild(openedLayers[i].layerInstance.$el);
-                    }
+            version: version,
+            index: -1,
+            open(settings = {}) {
+                let config = Object.assign({}, defConf, settings);
+                let instance = {};
 
-                    openedLayers = [];
-                }
+                this.index += 1;
 
-                layer.config.zIndex += openTimes;
+                config.zIndex += this.index * 2;
 
-                let configs = Object.assign({}, layer.config, settings);
-
-                let LayerConstructor, layerInstance, MaskConstructor, maskInstance;
-
-                function execOpenAnim() {
-                    layerInstance.$el.one('animationend', () => {
-                        layerInstance.$el.classList.remove('layer-anim', 'layer-anim-0' + configs.anim);
-                    });
-                    layerInstance.$el.classList.add('layer-anim', 'layer-anim-0' + configs.anim);
-                }
-
-                function execCloseAnim() {
-                    layerInstance.$el.one('animationend', () => {
-                        layerInstance.$el.classList.remove('layer-anim-close');
-
-                        document.body.removeChild(layerInstance.$el);
-                    });
-                    layerInstance.$el.classList.add('layer-anim-close');
-
-                    if (configs.shade) {
-                        document.body.removeChild(maskInstance.$el);
-                    }
-
-                    if (configs.scrollbar === false) {
-                        document.documentElement.style.overflow = '';
-                    }
-
-                    configs.end && configs.end();
-
-                    openedLayers = [];
-                }
-
-                function setLayerOffset() {
-                    let area = [layerInstance.$el.offsetWidth, layerInstance.$el.offsetHeight];
-                    let doc = [document.documentElement.clientWidth, document.documentElement.clientHeight];
-                    let type = typeof configs.offset === 'object';
-
-                    let offsetTop = (doc[1] - area[1]) / 2;
-                    let offsetLeft = (doc[0] - area[0]) / 2;
-
-                    if (type) {
-                        offsetTop = configs.offset[0];
-                        offsetLeft = configs.offset[1];
-                    } else if (configs.offset !== 'auto') {
-                        if (configs.offset === 't') {
-                            offsetTop = 0;
-                        } else if (configs.offset === 'r') {
-                            offsetLeft = doc[0] - area[0];
-                        } else if (configs.offset === 'b') {
-                            offsetTop = doc[1] - area[1];
-                        } else if (configs.offset === 'l') {
-                            offsetLeft = 0;
-                        } else if (configs.offset === 'lt') {
-                            offsetTop = 0;
-                            offsetLeft = 0;
-                        } else if (configs.offset === 'lb') {
-                            offsetTop = doc[1] - area[1];
-                            offsetLeft = 0;
-                        } else if (configs.offset === 'rt') {
-                            offsetTop = 0;
-                            offsetLeft = doc[0] - area[0];
-                        } else if (configs.offset === 'rb') {
-                            offsetTop = doc[1] - area[1];
-                            offsetLeft = doc[0] - area[0];
-                        } else {
-                            offsetTop = configs.offset;
-                        }
-                    }
-
-                    if (!configs.fixed) {
-                        // 非fixed布局
-                    }
-
-                    layerInstance.$el.style.top = offsetTop + 'px';
-                    layerInstance.$el.style.left = offsetLeft + 'px';
-                }
-
-                LayerConstructor = Vue.extend(Layer);
-                layerInstance = new LayerConstructor({
+                instance.layer = new (Vue.extend(Layer))({
                     el: document.createElement('div'),
-                    data: configs
-                });
-                layerInstance.$el.id = `php4world-layer${openTimes}`;
-                layerInstance.$el.times = openTimes;
-
-                if (configs.shade) {
-                    MaskConstructor = Vue.extend(Mask);
-                    maskInstance = new MaskConstructor({
-                        el: document.createElement('div'),
-                        data: {
-                            shade: configs.shade,
-                            shadeClose: configs.shadeClose,
-                            zIndex: configs.zIndex - 1
+                    data: {
+                        ...config,
+                        index: this.index,
+                        drag: {
+                            mx: 0,
+                            my: 0,
+                            rx: 0,
+                            ry: 0,
+                            rw: 0,
+                            rh: 0,
+                            canMove: false,
+                            canResize: false
                         }
-                    });
-                    maskInstance.$el.id = `php4world-layer-shade${openTimes}`;
-                    maskInstance.$el.times = openTimes;
-                    document.body.appendChild(maskInstance.$el);
+                    },
+                    mounted() {
+                        let moveElem, resizeElem;
 
-                    maskInstance.$once('onShadeClose', () => {
-                        configs.cancel && configs.cancel();
+                        if (this.move !== false) {
+                            moveElem = this.$el.querySelector(this.move);
+                            moveElem.style.cursor = 'move';
 
-                        execCloseAnim();
+                            moveElem.onmousedown = (e) => {
+                                e.preventDefault();
+
+                                this.drag.mx = e.clientX - parseFloat(this.$el.offsetLeft);
+                                this.drag.my = e.clientY - parseFloat(this.$el.offsetTop);
+
+                                this.drag.canMove = true;
+                            };
+                        }
+                        if (this.resize !== false) {
+                            resizeElem = this.$el.querySelector('.php4world-layer-resize');
+
+                            resizeElem.onmousedown = (e) => {
+                                e.preventDefault();
+
+                                this.drag.rw = this.$el.offsetWidth;
+                                this.drag.rh = this.$el.offsetHeight;
+                                this.drag.rx = e.clientX;
+                                this.drag.ry = e.clientY;
+
+                                this.drag.canResize = true;
+                            };
+                        }
+                    }
+                });
+
+                if (config.shade) {
+                    instance.mask = new (Vue.extend(Mask))({
+                        el: document.createElement('div'),
+                        data: config
                     });
 
-                    maskInstance.$el.one('click', () => {
-                        console.log('clicked');
-                    });
+                    document.body.appendChild(instance.mask.$el);
                 }
 
-                if (configs.scrollbar === false) {
-                    document.documentElement.style.overflow = 'hidden';
-                }
+                animOpen(instance.layer.$el, config.anim);
 
-                execOpenAnim();
+                document.body.appendChild(instance.layer.$el);
 
-                document.body.appendChild(layerInstance.$el);
+                offset(instance.layer.$el, config);
 
-                setLayerOffset();
+                // 弹出成功回调
+                config.success && config.success();
 
-                configs.success && configs.success();
-
-                if (configs.btn !== false) {
-                    if (typeof configs.btn === 'string') {
-                        configs.btn = [configs.btn];
+                // 按钮事件
+                if (config.btn !== false) {
+                    if (typeof config.btn === 'string') {
+                        config.btn = [config.btn];
                     }
 
-                    configs.btn.forEach((b, i) => {
-                        layerInstance.$once(`onLayerBtn${i + 1}`, () => {
+                    config.btn.forEach((b, i) => {
+                        instance.layer.$once(`emitLayerBtn${i + 1}`, (index) => {
                             if (i === 0) {
-                                configs.yes && configs.yes();
+                                config.yes && config.yes();
                             } else {
-                                configs[`btn${i + 1}`] && configs[`btn${i + 1}`]();
+                                config[`btn${i + 1}`] && config[`btn${i + 1}`]();
                             }
 
-                            execCloseAnim();
+                            this.close(index);
                         });
                     });
                 }
 
-                openedLayers.push({layerInstance, maskInstance});
+                // 关闭按钮事件
+                instance.layer.$once('emitLayerCancel', (index) => {
+                    config.cancel && config.cancel();
 
-                layerInstance.$once('onLayerCancel', () => {
-                    configs.cancel && configs.cancel();
-
-                    execCloseAnim();
+                    this.close(index);
                 });
 
-                if (configs.time > 0) {
+                // 自动关闭
+                if (config.time > 0) {
                     setTimeout(() => {
-                        execCloseAnim();
-                    }, configs.time);
+                        this.close(this.index);
+                    }, config.time);
                 }
 
-                openTimes += 2;
+                // 把实例存入对象池中
+                instances[this.index] = instance;
+
+                return this.index;
+            },
+            close(index) {
+                function destroy() {
+                    if (instances[index].mask) {
+                        document.body.removeChild(instances[index].mask.$el);
+                    }
+
+                    if (instances[index].layer.scrollbar === false) {
+                        document.documentElement.style.overflow = '';
+                    }
+
+                    instances[index].layer.end && instances[index].layer.end();
+
+                    delete instances[index];
+                }
+
+                if (instances[index].layer.isOutAnim) {
+                    // 关闭动画
+                    instances[index].layer.$el.one('animationend', () => {
+                        document.body.removeChild(instances[index].layer.$el);
+
+                        destroy();
+                    });
+                    instances[index].layer.$el.classList.add('layer-anim-close');
+                } else {
+                    document.body.removeChild(instances[index].layer.$el);
+
+                    destroy();
+                }
             }
         };
     }

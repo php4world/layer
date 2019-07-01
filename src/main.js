@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import Layer from './plugin/layer/entry';
+import Layer from './plugin/layer';
 
 Vue.config.productionTip = false;
 

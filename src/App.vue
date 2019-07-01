@@ -32,11 +32,18 @@
 
     export default {
         name: 'app',
-        mounted() {},
+        mounted() {
+            // this.$layer.open({content: '你好', shade: false});
+            this.$layer.open({
+                content: '你好'
+            });
+        },
         methods: {
             showAlert() {
-                let layer = this.$layer.open({content: '你好', shade: false});
-                console.log(layer);
+                this.$layer.open({
+                    content: '你好',
+                    shade: false
+                });
                 // this.$layer.open({content: '你好'});
                 // this.$layer.open({
                 //     offset: 20,
