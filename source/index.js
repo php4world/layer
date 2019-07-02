@@ -29,7 +29,9 @@ export default {
             content: '',
             btn: ['&#x786E;&#x5B9A;', '&#x53D6;&#x6D88;'],
             btnAlign: 'r',
-            closeBtn: 2,
+            minBtn: false,
+            maxBtn: false,
+            closeBtn: 1,
             zIndex: 19920215,
             maxWidth: 360
         }, options);

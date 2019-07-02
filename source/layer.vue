@@ -17,7 +17,9 @@
         </template>
 
         <span class="vue-layer-winctl">
-            <a class="vue-layer-ico vue-layer-close" :class="closeClass" href="javascript:;" @click="fnClose"></a>
+            <a href="javascript:;" class="vue-layer-min" v-if="minBtn"></a>
+            <a href="javascript:;" class="vue-layer-max" v-if="maxBtn"></a>
+            <a class="vue-layer-close" :class="closeClass" href="javascript:;" @click="fnClose" v-if="closeBtn > 0"></a>
         </span>
         <div class="vue-layer-btn"></div>
         <span class="vue-layer-resize" v-if="resize"></span>

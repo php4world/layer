@@ -36,6 +36,8 @@
                 content: '你好',
                 offset: 5,
                 move: false,
+                minBtn: true,
+                maxBtn: true,
                 yes() {
                     console.log(1);
                 }

@@ -61,6 +61,23 @@
             vertical-align: top;
         }
 
+        .vue-layer-min {
+            background-image: url(../img/min.svg);
+            background-size: 12px 12px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
+        .vue-layer-max {
+            background-image: url(../img/square.svg);
+            background-size: 12px 12px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+
+            &.vue-layer-restore {
+                background-image: url(../img/restore.svg);
+            }
+        }
+
         .vue-layer-close1 {
             background-image: url(../img/close.svg);
             background-size: 12px 12px;
@@ -84,6 +101,10 @@
             height: 30px;
             margin-left: 0;
             border-radius: 30px;
+
+            &:hover {
+                background-image: url(../img/close-circle-hover.svg);
+            }
         }
     }
 
@@ -105,6 +126,12 @@
             padding: 20px 20px 20px 55px;
             text-align: left;
         }
+    }
+
+    &.vue-layer-border {
+        border: 1px solid #B2B2B2;
+        border: 1px solid rgba(0, 0, 0, .1);
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
     }
 
     .vue-layer-resize {

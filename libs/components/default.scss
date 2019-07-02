@@ -1,25 +1,25 @@
 /* common */
-.php4world-layer .php4world-layer-btn * {
+.vue-layer .vue-layer-btn * {
     box-sizing: content-box !important;
 }
-.php4world-layer-shade,
-.php4world-layer {
+.vue-layer-shade,
+.vue-layer {
     position: fixed;
     pointer-events: auto;
 }
 
-.php4world-layer-shade {
+.vue-layer-shade {
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
 }
 
-.php4world-layer {
+.vue-layer {
     -webkit-overflow-scrolling: touch;
 }
 
-.php4world-layer {
+.vue-layer {
     top: 150px;
     left: 0;
     margin: 0;
@@ -30,38 +30,38 @@
     box-shadow: 1px 1px 50px rgba(0, 0, 0, .3);
 }
 
-.php4world-layer-close {
+.vue-layer-close {
     position: absolute;
 }
 
-.php4world-layer-content {
+.vue-layer-content {
     position: relative;
 }
 
-.php4world-layer-border {
+.vue-layer-border {
     border: 1px solid #B2B2B2;
     border: 1px solid rgba(0, 0, 0, .1);
     box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
-.php4world-layer-load {
+.vue-layer-load {
     background: url(./loading-1.gif) #eee center center no-repeat;
 }
 
-.php4world-layer-ico {
+.vue-layer-ico {
     background: url(./icon.png) no-repeat;
 }
 
-.php4world-layer-dialog .php4world-layer-ico,
-.php4world-layer-setwin a,
-.php4world-layer-btn a {
+.vue-layer-dialog .vue-layer-ico,
+.vue-layer-setwin a,
+.vue-layer-btn a {
     display: inline-block;
     *display: inline;
     *zoom: 1;
     vertical-align: top;
 }
 
-.php4world-layer-move {
+.vue-layer-move {
     display: none;
     position: fixed;
     *position: absolute;
@@ -76,7 +76,7 @@
     z-index: 2147483647;
 }
 
-.php4world-layer-resize {
+.vue-layer-resize {
     position: absolute;
     width: 15px;
     height: 15px;
@@ -372,7 +372,7 @@
 }
 
 /* 标题栏 */
-.php4world-layer-title {
+.vue-layer-title {
     padding: 0 80px 0 20px;
     height: 42px;
     line-height: 42px;
@@ -386,7 +386,7 @@
     border-radius: 2px 2px 0 0;
 }
 
-.php4world-layer-setwin {
+.vue-layer-setwin {
     position: absolute;
     right: 15px;
     *right: 0;
@@ -395,7 +395,7 @@
     line-height: initial;
 }
 
-.php4world-layer-setwin a {
+.vue-layer-setwin a {
     position: relative;
     width: 16px;
     height: 16px;
@@ -404,7 +404,7 @@
     _overflow: hidden;
 }
 
-.php4world-layer-setwin .php4world-layer-min cite {
+.vue-layer-setwin .vue-layer-min cite {
     position: absolute;
     width: 14px;
     height: 2px;
@@ -416,36 +416,36 @@
     _overflow: hidden;
 }
 
-.php4world-layer-setwin .php4world-layer-min:hover cite {
+.vue-layer-setwin .vue-layer-min:hover cite {
     background-color: #2D93CA;
 }
 
-.php4world-layer-setwin .php4world-layer-max {
+.vue-layer-setwin .vue-layer-max {
     background-position: -32px -40px;
 }
 
-.php4world-layer-setwin .php4world-layer-max:hover {
+.vue-layer-setwin .vue-layer-max:hover {
     background-position: -16px -40px;
 }
 
-.php4world-layer-setwin .php4world-layer-maxmin {
+.vue-layer-setwin .vue-layer-maxmin {
     background-position: -65px -40px;
 }
 
-.php4world-layer-setwin .php4world-layer-maxmin:hover {
+.vue-layer-setwin .vue-layer-maxmin:hover {
     background-position: -49px -40px;
 }
 
-.php4world-layer-setwin .php4world-layer-close1 {
+.vue-layer-setwin .vue-layer-close1 {
     background-position: 1px -40px;
     cursor: pointer;
 }
 
-.php4world-layer-setwin .php4world-layer-close1:hover {
+.vue-layer-setwin .vue-layer-close1:hover {
     opacity: 0.7;
 }
 
-.php4world-layer-setwin .php4world-layer-close2 {
+.vue-layer-setwin .vue-layer-close2 {
     position: absolute;
     right: -28px;
     top: -28px;
@@ -457,12 +457,12 @@
     _display: none;
 }
 
-.php4world-layer-setwin .php4world-layer-close2:hover {
+.vue-layer-setwin .vue-layer-close2:hover {
     background-position: -180px -31px;
 }
 
 /* 按钮栏 */
-.php4world-layer-btn {
+.vue-layer-btn {
     white-space: nowrap;
     text-align: right;
     padding: 6px 18px;
@@ -471,7 +471,7 @@
     -webkit-user-select: none;
 }
 
-.php4world-layer-btn a {
+.vue-layer-btn a {
     height: 28px;
     line-height: 28px;
     // margin: 0 5px 0;
@@ -488,35 +488,35 @@
     }
 }
 
-.php4world-layer-btn a:hover {
+.vue-layer-btn a:hover {
     opacity: 0.9;
     text-decoration: none;
 }
 
-.php4world-layer-btn a:active {
+.vue-layer-btn a:active {
     opacity: 0.8;
 }
 
-.php4world-layer-btn .php4world-layer-btn0 {
+.vue-layer-btn .vue-layer-btn0 {
     border-color: #1E9FFF;
     background-color: #1E9FFF;
     color: #fff !important;
 }
 
-.php4world-layer-btn-l {
+.vue-layer-btn-l {
     text-align: left;
 }
 
-.php4world-layer-btn-c {
+.vue-layer-btn-c {
     text-align: center;
 }
 
 /* 定制化 */
-.php4world-layer-dialog {
+.vue-layer-dialog {
     min-width: 260px;
 }
 
-.php4world-layer-dialog .php4world-layer-content {
+.vue-layer-dialog .vue-layer-content {
     position: relative;
     padding: 20px;
     line-height: 24px;
@@ -527,7 +527,7 @@
     overflow-y: auto;
 }
 
-.php4world-layer-dialog .php4world-layer-content .php4world-layer-ico {
+.vue-layer-dialog .vue-layer-content .vue-layer-ico {
     position: absolute;
     top: 16px;
     left: 15px;
@@ -536,44 +536,44 @@
     height: 30px;
 }
 
-.php4world-layer-ico1 {
+.vue-layer-ico1 {
     background-position: -30px 0
 }
 
-.php4world-layer-ico2 {
+.vue-layer-ico2 {
     background-position: -60px 0;
 }
 
-.php4world-layer-ico3 {
+.vue-layer-ico3 {
     background-position: -90px 0;
 }
 
-.php4world-layer-ico4 {
+.vue-layer-ico4 {
     background-position: -120px 0;
 }
 
-.php4world-layer-ico5 {
+.vue-layer-ico5 {
     background-position: -150px 0;
 }
 
-.php4world-layer-ico6 {
+.vue-layer-ico6 {
     background-position: -180px 0;
 }
 
-.php4world-layer-rim {
+.vue-layer-rim {
     border: 6px solid #8D8D8D;
     border: 6px solid rgba(0, 0, 0, .3);
     border-radius: 5px;
     box-shadow: none;
 }
 
-.php4world-layer-msg {
+.vue-layer-msg {
     min-width: 180px;
     border: 1px solid #D3D4D3;
     box-shadow: none;
 }
 
-.php4world-layer-hui {
+.vue-layer-hui {
     min-width: 100px;
     background-color: #000;
     filter: alpha(opacity=60);
@@ -582,68 +582,68 @@
     border: none;
 }
 
-.php4world-layer-hui .php4world-layer-content {
+.vue-layer-hui .vue-layer-content {
     padding: 12px 25px;
     text-align: center;
 }
 
-.php4world-layer-dialog .php4world-layer-padding {
+.vue-layer-dialog .vue-layer-padding {
     padding: 20px 20px 20px 55px;
     text-align: left;
 }
 
-.php4world-layer-page .php4world-layer-content {
+.vue-layer-page .vue-layer-content {
     position: relative;
     overflow: auto;
 }
 
-.php4world-layer-page .php4world-layer-btn,
-.php4world-layer-iframe .php4world-layer-btn {
+.vue-layer-page .vue-layer-btn,
+.vue-layer-iframe .vue-layer-btn {
     padding-top: 10px;
 }
 
-.php4world-layer-nobg {
+.vue-layer-nobg {
     background: none;
 }
 
-.php4world-layer-iframe iframe {
+.vue-layer-iframe iframe {
     display: block;
     width: 100%;
 }
 
-.php4world-layer-loading {
+.vue-layer-loading {
     border-radius: 100%;
     background: none;
     box-shadow: none;
     border: none;
 }
 
-.php4world-layer-loading .php4world-layer-content {
+.vue-layer-loading .vue-layer-content {
     width: 60px;
     height: 24px;
     background: url(./loading-0.gif) no-repeat;
 }
 
-.php4world-layer-loading .php4world-layer-loading1 {
+.vue-layer-loading .vue-layer-loading1 {
     width: 37px;
     height: 37px;
     background: url(./loading-1.gif) no-repeat;
 }
 
-.php4world-layer-loading .php4world-layer-loading2,
-.php4world-layer-ico16 {
+.vue-layer-loading .vue-layer-loading2,
+.vue-layer-ico16 {
     width: 32px;
     height: 32px;
     background: url(./loading-2.gif) no-repeat;
 }
 
-.php4world-layer-tips {
+.vue-layer-tips {
     background: none;
     box-shadow: none;
     border: none;
 }
 
-.php4world-layer-tips .php4world-layer-content {
+.vue-layer-tips .vue-layer-content {
     position: relative;
     line-height: 22px;
     min-width: 12px;
@@ -656,12 +656,12 @@
     color: #fff;
 }
 
-.php4world-layer-tips .php4world-layer-close {
+.vue-layer-tips .vue-layer-close {
     right: -2px;
     top: -1px;
 }
 
-.php4world-layer-tips i.php4world-layer-TipsG {
+.vue-layer-tips i.vue-layer-TipsG {
     position: absolute;
     width: 0;
     height: 0;
@@ -671,75 +671,75 @@
     *overflow: hidden;
 }
 
-.php4world-layer-tips i.php4world-layer-TipsT,
-.php4world-layer-tips i.php4world-layer-TipsB {
+.vue-layer-tips i.vue-layer-TipsT,
+.vue-layer-tips i.vue-layer-TipsB {
     left: 5px;
     border-right-style: solid;
     border-right-color: #000;
 }
 
-.php4world-layer-tips i.php4world-layer-TipsT {
+.vue-layer-tips i.vue-layer-TipsT {
     bottom: -8px;
 }
 
-.php4world-layer-tips i.php4world-layer-TipsB {
+.vue-layer-tips i.vue-layer-TipsB {
     top: -8px;
 }
 
-.php4world-layer-tips i.php4world-layer-TipsR,
-.php4world-layer-tips i.php4world-layer-TipsL {
+.vue-layer-tips i.vue-layer-TipsR,
+.vue-layer-tips i.vue-layer-TipsL {
     top: 5px;
     border-bottom-style: solid;
     border-bottom-color: #000;
 }
 
-.php4world-layer-tips i.php4world-layer-TipsR {
+.vue-layer-tips i.vue-layer-TipsR {
     left: -8px;
 }
 
-.php4world-layer-tips i.php4world-layer-TipsL {
+.vue-layer-tips i.vue-layer-TipsL {
     right: -8px;
 }
 
 /* skin */
-.php4world-layer-lan[type="dialog"] {
+.vue-layer-lan[type="dialog"] {
     min-width: 280px;
 }
 
-.php4world-layer-lan .php4world-layer-title {
+.vue-layer-lan .vue-layer-title {
     background: #4476A7;
     color: #fff;
     border: none;
 }
 
-.php4world-layer-lan .php4world-layer-btn {
+.vue-layer-lan .vue-layer-btn {
     padding: 5px 10px 10px;
     text-align: right;
     border-top: 1px solid #E9E7E7
 }
 
-.php4world-layer-lan .php4world-layer-btn a {
+.vue-layer-lan .vue-layer-btn a {
     background: #fff;
     border-color: #E9E7E7;
     color: #333;
 }
 
-.php4world-layer-lan .php4world-layer-btn .php4world-layer-btn1 {
+.vue-layer-lan .vue-layer-btn .vue-layer-btn1 {
     background: #C9C5C5;
 }
 
-.php4world-layer-molv .php4world-layer-title {
+.vue-layer-molv .vue-layer-title {
     background: #009f95;
     color: #fff;
     border: none;
 }
 
-.php4world-layer-molv .php4world-layer-btn a {
+.vue-layer-molv .vue-layer-btn a {
     background: #009f95;
     border-color: #009f95;
 }
 
-.php4world-layer-molv .php4world-layer-btn .php4world-layer-btn1 {
+.vue-layer-molv .vue-layer-btn .vue-layer-btn1 {
     background: #92B8B1;
 }
 
@@ -750,12 +750,12 @@
  
  */
 
-.php4world-layer-iconext {
+.vue-layer-iconext {
     background: url(./icon-ext.png) no-repeat;
 }
 
 /* prompt模式 */
-.php4world-layer-prompt .php4world-layer-input {
+.vue-layer-prompt .vue-layer-input {
     display: block;
     width: 230px;
     height: 36px;
@@ -766,32 +766,32 @@
     color: #333;
 }
 
-.php4world-layer-prompt textarea.php4world-layer-input {
+.vue-layer-prompt textarea.vue-layer-input {
     width: 300px;
     height: 100px;
     line-height: 20px;
     padding: 6px 10px;
 }
 
-.php4world-layer-prompt .php4world-layer-content {
+.vue-layer-prompt .vue-layer-content {
     padding: 20px;
 }
 
-.php4world-layer-prompt .php4world-layer-btn {
+.vue-layer-prompt .vue-layer-btn {
     padding-top: 0;
 }
 
 /* tab模式 */
-.php4world-layer-tab {
+.vue-layer-tab {
     box-shadow: 1px 1px 50px rgba(0, 0, 0, .4);
 }
 
-.php4world-layer-tab .php4world-layer-title {
+.vue-layer-tab .vue-layer-title {
     padding-left: 0;
     overflow: visible;
 }
 
-.php4world-layer-tab .php4world-layer-title span {
+.vue-layer-tab .vue-layer-title span {
     position: relative;
     float: left;
     min-width: 80px;
@@ -805,7 +805,7 @@
     cursor: pointer;
 }
 
-.php4world-layer-tab .php4world-layer-title span.php4world-this {
+.vue-layer-tab .vue-layer-title span.vue-this {
     height: 43px;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
@@ -813,35 +813,35 @@
     z-index: 10;
 }
 
-.php4world-layer-tab .php4world-layer-title span:first-child {
+.vue-layer-tab .vue-layer-title span:first-child {
     border-left: none;
 }
 
-.php4world-layer-tabmain {
+.vue-layer-tabmain {
     line-height: 24px;
     clear: both;
 }
 
-.php4world-layer-tabmain .php4world-layer-tabli {
+.vue-layer-tabmain .vue-layer-tabli {
     display: none;
 }
 
-.php4world-layer-tabmain .php4world-layer-tabli.php4world-this {
+.vue-layer-tabmain .vue-layer-tabli.vue-this {
     display: block;
 }
 
 /* photo模式 */
-.php4world-layer-photos {
+.vue-layer-photos {
     -webkit-animation-duration: .8s;
     animation-duration: .8s;
 }
 
-.php4world-layer-photos .php4world-layer-content {
+.vue-layer-photos .vue-layer-content {
     overflow: hidden;
     text-align: center;
 }
 
-.php4world-layer-photos .php4world-layer-phimg img {
+.vue-layer-photos .vue-layer-phimg img {
     position: relative;
     width: 100%;
     display: inline-block;
@@ -850,13 +850,13 @@
     vertical-align: top;
 }
 
-.php4world-layer-imguide,
-.php4world-layer-imgbar {
+.vue-layer-imguide,
+.vue-layer-imgbar {
     display: none;
 }
 
-.php4world-layer-imgprev,
-.php4world-layer-imgnext {
+.vue-layer-imgprev,
+.vue-layer-imgnext {
     position: absolute;
     top: 50%;
     width: 27px;
@@ -867,30 +867,30 @@
     blr: expression(this.onFocus=this.blur());
 }
 
-.php4world-layer-imgprev {
+.vue-layer-imgprev {
     left: 10px;
     background-position: -5px -5px;
     _background-position: -70px -5px;
 }
 
-.php4world-layer-imgprev:hover {
+.vue-layer-imgprev:hover {
     background-position: -33px -5px;
     _background-position: -120px -5px;
 }
 
-.php4world-layer-imgnext {
+.vue-layer-imgnext {
     right: 10px;
     _right: 8px;
     background-position: -5px -50px;
     _background-position: -70px -50px;
 }
 
-.php4world-layer-imgnext:hover {
+.vue-layer-imgnext:hover {
     background-position: -33px -50px;
     _background-position: -120px -50px;
 }
 
-.php4world-layer-imgbar {
+.vue-layer-imgbar {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -907,11 +907,11 @@
     font-size: 0;
 }
 
-.php4world-layer-imgtit {
+.vue-layer-imgtit {
     /*position:absolute; left:20px;*/
 }
 
-.php4world-layer-imgtit * {
+.vue-layer-imgtit * {
     display: inline-block;
     *display: inline;
     *zoom: 1;
@@ -919,7 +919,7 @@
     font-size: 12px;
 }
 
-.php4world-layer-imgtit a {
+.vue-layer-imgtit a {
     max-width: 65%;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -927,12 +927,12 @@
     color: #fff;
 }
 
-.php4world-layer-imgtit a:hover {
+.vue-layer-imgtit a:hover {
     color: #fff;
     text-decoration: underline;
 }
 
-.php4world-layer-imgtit em {
+.vue-layer-imgtit em {
     padding-left: 10px;
     font-style: normal;
 }
@@ -987,7 +987,7 @@
 }
 
 @media screen and (max-width: 1100px) {
-    .php4world-layer-iframe {
+    .vue-layer-iframe {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
