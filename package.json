@@ -10,7 +10,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "plugin": "vue-cli-service build --target lib --name layer source/index.js"
+    "plugin": "vue-cli-service build --target lib --name layer source/index.js",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "main": "dist/layer.umd.min.js",
   "files": [
@@ -34,7 +36,8 @@
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "vuepress": "^1.0.2"
   },
   "repository": {
     "type": "git",

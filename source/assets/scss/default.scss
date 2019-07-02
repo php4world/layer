@@ -1,0 +1,118 @@
+/* shade */
+.vue-layer-shade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+
+/* layer */
+.vue-layer {
+    -webkit-overflow-scrolling: touch;
+    position: fixed;
+    pointer-events: auto;
+    top: 150px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    -webkit-background-clip: content;
+    border-radius: 2px;
+    box-shadow: 1px 1px 50px rgba(0, 0, 0, .3);
+
+    * {
+        box-sizing: border-box !important;
+    }
+
+    .vue-layer-title {
+        padding: 0 80px 0 20px;
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid #E8E8E8;
+        font-size: 14px;
+        color: #333333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        background-color: #F8F8F8;
+        border-radius: 2px 2px 0 0;
+    }
+
+    .vue-layer-content {
+        position: relative;
+    }
+
+    .vue-layer-winctl {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 0;
+        line-height: initial;
+
+        a {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            margin-left: 10px;
+            font-size: 12px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .vue-layer-close1 {
+            background-image: url(../img/close.svg);
+            background-size: 12px 12px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        .vue-layer-close2 {
+            background-image: url(../img/close-circle.svg);
+            background-size: 30px 30px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            position: absolute;
+            right: -28px;
+            top: -28px;
+            width: 30px;
+            height: 30px;
+            margin-left: 0;
+            border-radius: 30px;
+        }
+    }
+
+    &.vue-layer-dialog {
+        min-width: 260px;
+
+        .vue-layer-content {
+            position: relative;
+            padding: 20px;
+            line-height: 24px;
+            word-break: break-all;
+            overflow: hidden;
+            font-size: 14px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .vue-layer-padding {
+            padding: 20px 20px 20px 55px;
+            text-align: left;
+        }
+    }
+
+    .vue-layer-resize {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        right: 0;
+        bottom: 0;
+        cursor: se-resize;
+    }
+}
