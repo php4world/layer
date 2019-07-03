@@ -1,8 +1,8 @@
 <template>
-    <div class="vue-layer" :class="typeClass" :style="layerStyle" data-type="dialog">
-        <div class="vue-layer-title" v-html="title"></div>
+    <div class="vue-layer" :class="typeClass" :style="layerStyle" :type="types[type]">
+        <div class="vue-layer-title" v-if="title !== false && type < 3" :style="Object.prototype.toString.call(title) === '[object Array]' ? title[1] : ''" v-html="Object.prototype.toString.call(title) === '[object Array]' ? title[0] : title"></div>
 
-        <template v-if="type !== 2">
+        <template v-if="type === 0 || type === 1">
             <div
                 class="vue-layer-content"
                 :class="{'vue-layer-padding': icon !== ''}"
@@ -10,27 +10,54 @@
                 v-html="rawContent"
             ></div>
         </template>
-        <template v-else>
+        <template v-if="type === 2">
             <div class="vue-layer-content">
-                <iframe :scrolling="typeof content === 'string' ? 'auto' : 'no'" allowtransparency="true" onload="this.className='';" class="" frameborder="0" :src="typeof content === 'string' ? content : content[0]" :style="iframeStyle"></iframe>
+                <iframe
+                    allowtransparency="true"
+                    onload="this.className='';"
+                    frameborder="0"
+                    :scrolling="Object.prototype.toString.call(content) === '[object String]' ? 'auto' : 'no'"
+                    :src="Object.prototype.toString.call(content) === '[object String]' ? content : content[0]"
+                    :style="iframeStyle"
+                ></iframe>
             </div>
+        </template>
+        <template v-if="type === 3">
+            <div class="vue-layer-content" :class="`vue-layer-loading${icon}`"></div>
+        </template>
+        <template v-if="type === 4">
+            <div class="vue-layer-content"></div>
         </template>
 
         <span class="vue-layer-winctl">
             <a href="javascript:;" class="vue-layer-min" v-if="minBtn"></a>
             <a href="javascript:;" class="vue-layer-max" v-if="maxBtn"></a>
-            <a class="vue-layer-close" :class="closeClass" href="javascript:;" @click="fnClose" v-if="closeBtn > 0"></a>
+            <a href="javascript:;" class="vue-layer-close" :class="closeClass" @click="fnClose" v-if="closeBtn > 0 && type < 3"></a>
         </span>
-        <div class="vue-layer-btn"></div>
-        <span class="vue-layer-resize" v-if="resize"></span>
+
+        <div class="vue-layer-btn" :class="{'vue-layer-btn-l': btnAlign === 'l', 'vue-layer-btn-c': btnAlign === 'c'}" v-if="btn && type < 3">
+            <template v-if="Object.prototype.toString.call(btn) === '[object String]'">
+                <a class="vue-layer-btn0" @click="fnBtn(0)" v-html="btn || '确定'"></a>
+            </template>
+            <template v-if="Object.prototype.toString.call(btn) === '[object Array]'">
+                <a v-for="(button, index) in btn" :key="`btn${index}`" :class="`vue-layer-btn${index}`" @click="fnBtn(index)" v-html="button"></a>
+            </template>
+        </div>
+
+        <span class="vue-layer-resize" v-if="resize && type < 3"></span>
     </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                types: ['dialog', 'page', 'iframe', 'loading', 'tips']
+            };
+        },
         computed: {
             typeClass() {
-                return `vue-layer-${['dialog', 'page', 'iframe', 'loading', 'tips'][this.type]}`;
+                return `vue-layer-${this.types[this.type]}`;
             },
             layerStyle() {
                 let styles = `z-index: ${this.zIndex};`;
@@ -64,10 +91,13 @@
                 return `height: ${thatHeight}`;
             },
             closeClass() {
-                return `vue-layer-close${this.closeBtn}`;
+                return 'vue-layer-close' + ((!this.title) ? 2 : this.closeBtn);
             }
         },
         methods: {
+            fnBtn(index) {
+                this.$emit(`btn${index + 1}`, this.index);
+            },
             fnClose() {
                 this.$emit('close', this.index);
             }

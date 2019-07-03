@@ -22,7 +22,7 @@
         methods: {
             close() {
                 if (this.shadeClose) {
-                    this.$emit('close');
+                    this.$emit('close', this.index);
                 }
             }
         }

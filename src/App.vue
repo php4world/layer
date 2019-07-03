@@ -31,16 +31,11 @@
     export default {
         name: 'app',
         mounted() {
-            // this.$layer.open({content: '你好', shade: false});
             this.$layer.open({
-                content: '你好',
-                offset: 5,
-                move: false,
-                minBtn: true,
-                maxBtn: true,
-                yes() {
-                    console.log(1);
-                }
+                type: 0,
+                icon: 4,
+                // title: false,
+                content: 'https://www.imaomimi.com'
             });
         },
         methods: {

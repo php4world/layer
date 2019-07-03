@@ -7,6 +7,19 @@
     height: 100%;
     pointer-events: auto;
 }
+/* move event */
+.vue-layer-move {
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: move;
+    opacity: 0;
+    background-color: #fff;
+    z-index: 2147483647;
+}
 
 /* layer */
 .vue-layer {
@@ -120,6 +133,44 @@
             font-size: 14px;
             overflow-x: hidden;
             overflow-y: auto;
+
+            .vue-layer-ico {
+                position: absolute;
+                top: 16px;
+                left: 15px;
+                width: 30px;
+                height: 30px;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+                &.vue-layer-ico-0 {
+                    background-image: url(../img/warn.svg);
+                }
+
+                &.vue-layer-ico-1 {
+                    background-image: url(../img/success.svg);
+                }
+
+                &.vue-layer-ico-2 {
+                    background-image: url(../img/error.svg);
+                }
+
+                &.vue-layer-ico-3 {
+                    background-image: url(../img/idea.svg);
+                }
+
+                &.vue-layer-ico-4 {
+                    background-image: url(../img/map.svg);
+                }
+
+                &.vue-layer-ico-5 {
+                    background-image: url(../img/happy.svg);
+                }
+
+                &.vue-layer-ico-6 {
+                    background-image: url(../img/dead.svg);
+                }
+            }
         }
 
         .vue-layer-padding {
@@ -127,11 +178,106 @@
             text-align: left;
         }
     }
+    &.vue-layer-page {
+        .vue-layer-content {
+            position: relative;
+            overflow: auto;
+        }
+        .vue-layer-btn {
+            padding-top: 10px;
+        }
+    }
+    &.vue-layer-iframe {
+        .vue-layer-btn {
+            padding-top: 10px;
+        }
+        iframe {
+            display: block;
+            width: 100%;
+        }
+    }
+    &.vue-layer-loading {
+        border-radius: 100%;
+        background: none;
+        box-shadow: none;
+        border: none;
+
+        .vue-layer-content {
+            width: 60px;
+            height: 60px;
+            background-image: url('../img/loading-0.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .vue-layer-loading1 {
+            width: 60px;
+            height: 60px;
+            background: url(../img/loading-1.svg) no-repeat;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .vue-layer-loading2 {
+            width: 60px;
+            height: 60px;
+            background: url(../img/loading-2.svg) no-repeat;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
+    &.vue-layer-tips {}
 
     &.vue-layer-border {
         border: 1px solid #B2B2B2;
         border: 1px solid rgba(0, 0, 0, .1);
         box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+    }
+
+    .vue-layer-btn {
+        white-space: nowrap;
+        text-align: right;
+        padding: 6px 18px;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-select: none;
+        a {
+            box-sizing: content-box !important;
+            display: inline-block;
+            vertical-align: top;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 14px;
+            border: 1px solid #dedede;
+            background-color: #fff;
+            color: #333;
+            border-radius: 2px;
+            font-weight: 400;
+            cursor: pointer;
+            text-decoration: none;
+            &:not(:first-child) {
+                margin-left: 5px;
+            }
+            &:hover {
+                opacity: 0.9;
+                text-decoration: none;
+            }
+            &:active {
+                opacity: 0.8;
+            }
+        }
+        .vue-layer-btn0 {
+            border-color: #1E9FFF;
+            background-color: #1E9FFF;
+            color: #fff !important;
+        }
+        &.vue-layer-btn-l {
+            text-align: left;
+        }
+
+        &.vue-layer-btn-c {
+            text-align: center;
+        }
     }
 
     .vue-layer-resize {
@@ -141,5 +287,15 @@
         right: 0;
         bottom: 0;
         cursor: se-resize;
+    }
+}
+
+/* anim */
+@import "./anim.scss";
+
+@media screen and (max-width: 1100px) {
+    .vue-layer-iframe {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 }

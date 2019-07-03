@@ -3,6 +3,7 @@ import App from './App.vue';
 
 // import Layer from '@php4world/layer';
 import Layer from '../source';
+import './bootstrap.min.css';
 
 Vue.config.productionTip = false;
 
