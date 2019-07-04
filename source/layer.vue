@@ -5,7 +5,7 @@
         <template v-if="type === 0 || type === 1">
             <div
                 class="vue-layer-content"
-                :class="{'vue-layer-padding': icon !== ''}"
+                :class="{'vue-layer-padding': icon > -1}"
                 :style="contentStyle"
                 v-html="rawContent"
             ></div>
@@ -83,7 +83,7 @@
                 }
             },
             rawContent() {
-                return (this.icon !== '' ? `<i class="vue-layer-ico vue-layer-ico-${this.icon}"></i>` : '') + this.content;
+                return (this.icon > -1 ? `<i class="vue-layer-ico vue-layer-ico-${this.icon}"></i>` : '') + this.content;
             },
             iframeStyle() {
                 let thatHeight = parseFloat(this.area[1]) - 42 + 'px';
