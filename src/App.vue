@@ -7,7 +7,7 @@
             <h1>Layer</h1>
             <h1>Layer</h1>
             <h1>Layer</h1>
-            <h1>Layer</h1>
+            <h1 ref="a">Layer Tips</h1>
             <h1>Layer</h1>
             <h1>Layer</h1>
             <h1>Layer</h1>
@@ -32,10 +32,10 @@
         name: 'app',
         mounted() {
             this.$layer.open({
-                type: 0,
-                icon: 4,
-                // title: false,
-                content: 'https://www.imaomimi.com'
+                type: 1,
+                offset: ['20%', '25%'],
+                content: ['你好', this.$refs.a],
+                fixed: false
             });
         },
         methods: {

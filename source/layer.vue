@@ -2,12 +2,19 @@
     <div class="vue-layer" :class="typeClass" :style="layerStyle" :type="types[type]">
         <div class="vue-layer-title" v-if="title !== false && type < 3" :style="Object.prototype.toString.call(title) === '[object Array]' ? title[1] : ''" v-html="Object.prototype.toString.call(title) === '[object Array]' ? title[0] : title"></div>
 
-        <template v-if="type === 0 || type === 1">
+        <template v-if="type === 0">
             <div
                 class="vue-layer-content"
                 :class="{'vue-layer-padding': icon > -1}"
                 :style="contentStyle"
                 v-html="rawContent"
+            ></div>
+        </template>
+        <template v-if="type === 1">
+            <div
+                class="vue-layer-content"
+                :style="contentStyle"
+                v-html="content"
             ></div>
         </template>
         <template v-if="type === 2">
@@ -26,7 +33,10 @@
             <div class="vue-layer-content" :class="`vue-layer-loading${icon}`"></div>
         </template>
         <template v-if="type === 4">
-            <div class="vue-layer-content"></div>
+            <div class="vue-layer-content" style="padding-right: 30px;">
+                {{content[0]}}
+                <i class="vue-layer-TipsG vue-layer-TipsL"></i>
+            </div>
         </template>
 
         <span class="vue-layer-winctl">
@@ -68,6 +78,10 @@
                     styles += `width: ${this.area[0]};height: ${this.area[1]};`;
                 } else if (areaType !== 'auto') {
                     styles += `width: ${this.area};`;
+                }
+
+                if (!this.fixed) {
+                    styles += 'position: absolute';
                 }
 
                 return styles;

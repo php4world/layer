@@ -34,7 +34,9 @@ export default {
             maxBtn: false,
             closeBtn: 1,
             zIndex: 19920215,
-            maxWidth: 360
+            maxWidth: 360,
+            tips: 2,
+            tipsMore: false
         }, options);
 
         // 设置位置
@@ -75,7 +77,10 @@ export default {
             }
 
             if (!settings.fixed) {
-                // todo 非fixed布局
+                offsetTop = /%$/.test(offsetTop) ? document.documentElement.clientHeight * (parseFloat(offsetTop) / 100) : parseFloat(offsetTop);
+                offsetLeft = /%$/.test(offsetLeft) ? document.documentElement.clientWidth * (parseFloat(offsetLeft) / 100) : parseFloat(offsetLeft);
+                offsetTop += document.documentElement.scrollTop;
+                offsetLeft += document.documentElement.scrollLeft;
             }
 
             el.style.top = offsetTop + 'px';
