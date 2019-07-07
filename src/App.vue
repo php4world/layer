@@ -32,10 +32,8 @@
         name: 'app',
         mounted() {
             this.$layer.open({
-                type: 1,
-                offset: ['20%', '25%'],
-                content: ['你好', this.$refs.a],
-                fixed: false
+                type: 0,
+                content: '你好'
             });
         },
         methods: {

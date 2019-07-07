@@ -34,9 +34,7 @@ export default {
             maxBtn: false,
             closeBtn: 1,
             zIndex: 19920215,
-            maxWidth: 360,
-            tips: 2,
-            tipsMore: false
+            maxWidth: 360
         }, options);
 
         // 设置位置

@@ -32,12 +32,6 @@
         <template v-if="type === 3">
             <div class="vue-layer-content" :class="`vue-layer-loading${icon}`"></div>
         </template>
-        <template v-if="type === 4">
-            <div class="vue-layer-content" style="padding-right: 30px;">
-                {{content[0]}}
-                <i class="vue-layer-TipsG vue-layer-TipsL"></i>
-            </div>
-        </template>
 
         <span class="vue-layer-winctl">
             <a href="javascript:;" class="vue-layer-min" v-if="minBtn"></a>
@@ -62,7 +56,7 @@
     export default {
         data() {
             return {
-                types: ['dialog', 'page', 'iframe', 'loading', 'tips']
+                types: ['dialog', 'page', 'iframe', 'loading']
             };
         },
         computed: {
