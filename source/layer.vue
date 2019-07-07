@@ -61,7 +61,7 @@
         },
         computed: {
             typeClass() {
-                return `vue-layer-${this.types[this.type]}`;
+                return `vue-layer-${this.types[this.type]} ` + (this.skin || '');
             },
             layerStyle() {
                 let styles = `z-index: ${this.zIndex};`;

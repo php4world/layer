@@ -34,7 +34,8 @@ export default {
             maxBtn: false,
             closeBtn: 1,
             zIndex: 19920215,
-            maxWidth: 360
+            maxWidth: 360,
+            skin: ''
         }, options);
 
         // 设置位置
@@ -165,10 +166,11 @@ export default {
             open(opts = {}) {
                 let instance = {};
 
-                if (opts.type === 0 && Object.prototype.toString.call(opts.btn) === '[object Undefined]') {
-                    opts.btn = '确定';
-                }
                 let config = Object.assign({}, defConf, opts);
+
+                if (config.type === 0 && Object.prototype.toString.call(opts.btn) === '[object Undefined]') {
+                    config.btn = '确定';
+                }
 
                 this.index += 1;
 
@@ -316,6 +318,70 @@ export default {
 
                     destroy();
                 }
+            },
+            alert(content, opts, yes) {
+                let type = Object.prototype.toString.call(opts) === '[object Function]';
+                if (type) {
+                    yes = opts;
+                }
+
+                return this.open(Object.assign({}, {
+                    content: content,
+                    yes: yes
+                }, type ? {} : opts));
+            },
+            confirm(content, opts, yes, cancel) {
+                let type = Object.prototype.toString.call(opts) === '[object Function]';
+                if (type) {
+                    cancel = yes;
+                    yes = opts;
+                }
+
+                return this.open(Object.assign({}, {
+                    content: content,
+                    btn: ['&#x786E;&#x5B9A;', '&#x53D6;&#x6D88;'],
+                    yes: yes,
+                    btn2: cancel
+                }, type ? {} : opts));
+            },
+            msg(content, opts, end) {
+                let type = Object.prototype.toString.call(opts) === '[object Function]';
+                if (type) {
+                    end = opts;
+                }
+
+                let skin = 'vue-layer-msg';
+
+                return this.open(Object.assign({}, {
+                    content: content,
+                    time: 3000,
+                    shade: false,
+                    skin: skin,
+                    title: false,
+                    closeBtn: false,
+                    btn: false,
+                    resize: false,
+                    end: end
+                }, type ? {
+                    skin: skin + ' vue-layer-hui',
+                    anim: 6
+                } : (() => {
+                    opts = opts || {};
+                    if (opts.icon === -1 || opts.icon === undefined) {
+                        opts.skin = skin + ' ' + (opts.skin || 'vue-layer-hui');
+                    }
+
+                    return opts;
+                })()));
+            },
+            load(icon, opts) {
+                return this.open(Object.assign({}, {
+                    type: 3,
+                    icon: icon || 0,
+                    resize: false,
+                    closeBtn: false,
+                    shade: 0.01
+                }, opts));
             }
         };
     }

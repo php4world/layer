@@ -227,6 +227,26 @@
         }
     }
 
+    &.vue-layer-msg {
+        min-width: 180px;
+        border: 1px solid #D3D4D3;
+        box-shadow: none;
+    }
+
+    &.vue-layer-hui {
+        min-width: 100px;
+        background-color: #000;
+        filter: alpha(opacity=60);
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        border: none;
+        
+        .vue-layer-content {
+            padding: 12px 25px;
+            text-align: center;
+        }
+    }
+
     &.vue-layer-border {
         border: 1px solid #B2B2B2;
         border: 1px solid rgba(0, 0, 0, .1);
