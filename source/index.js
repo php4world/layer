@@ -302,6 +302,8 @@ export default {
                     instance.layer.$el.style.height = '42px';
                     instance.layer.$el.style.position = 'fixed';
                     instance.layer.$el.style.overflow = 'hidden';
+
+                    config.min && config.min();
                 });
                 instance.layer.$on('maxOrRestore', (winMax, winMin) => {
                     if (winMax) {
@@ -310,12 +312,20 @@ export default {
                         instance.layer.$el.style.left = instance.layer.layerWin.left;
                         instance.layer.$el.style.width = instance.layer.layerWin.width;
                         instance.layer.$el.style.height = instance.layer.layerWin.height;
+                        instance.layer.$el.style.position = '';
+                        instance.layer.$el.style.overflow = '';
+
+                        config.restore && config.restore();
                     } else if (winMin) {
                         instance.layer.layerWin.isMin = false;
                         instance.layer.$el.style.top = instance.layer.layerWin.top;
                         instance.layer.$el.style.left = instance.layer.layerWin.left;
                         instance.layer.$el.style.width = instance.layer.layerWin.width;
                         instance.layer.$el.style.height = instance.layer.layerWin.height;
+                        instance.layer.$el.style.position = '';
+                        instance.layer.$el.style.overflow = '';
+
+                        config.restore && config.restore();
                     } else {
                         // 记录winData
                         instance.layer.layerWin.isMax = true;
@@ -328,6 +338,8 @@ export default {
                         instance.layer.$el.style.left = 0;
                         instance.layer.$el.style.width = document.documentElement.clientWidth + 'px';
                         instance.layer.$el.style.height = document.documentElement.clientHeight + 'px';
+
+                        config.full && config.full();
                     }
                 });
 

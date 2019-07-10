@@ -729,12 +729,12 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@php4world/layer@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@php4world/layer/-/layer-0.1.8.tgz#8cf2aceae15d2d12ea9f926c70dbf4f19aff02ff"
-  integrity sha512-b2OF+8Sog5tA+/zAM8j+e64CARhom1rHWVXUNtgniuSLqGIQ4/jT50qJsmwtcw9hOC+qu9etLG58RfMW3bPaWQ==
+"@php4world/layer@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@php4world/layer/-/layer-0.1.9.tgz#90e7c6038594d5a9da58be92513bab855d289b85"
+  integrity sha512-Gh8A5MtpFu28fYvE9suKazqUO5JrIUSlCrAKEYghCZIvo3ozvcxzBE9EodZUwpyyW+UdhLO/s1KNdLJs4ZD44w==
   dependencies:
-    "@php4world/layer" "^0.1.8"
+    "@php4world/layer" "^0.1.9"
     core-js "^2.6.5"
     vue "^2.6.10"
 
