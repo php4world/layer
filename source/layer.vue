@@ -34,8 +34,8 @@
         </template>
 
         <span class="vue-layer-winctl">
-            <a href="javascript:;" class="vue-layer-min" v-if="minBtn"></a>
-            <a href="javascript:;" class="vue-layer-max" v-if="maxBtn"></a>
+            <a href="javascript:;" class="vue-layer-min" v-if="minBtn && type === 1 && !layerWin.isMax && !layerWin.isMin" @click="min"></a>
+            <a href="javascript:;" class="vue-layer-max" :class="{'vue-layer-restore': layerWin.isMax || layerWin.isMin}" v-if="maxBtn && type === 1" @click="maxOrRestore"></a>
             <a href="javascript:;" class="vue-layer-close" :class="closeClass" @click="fnClose" v-if="closeBtn > 0 && type < 3"></a>
         </span>
 
@@ -48,7 +48,7 @@
             </template>
         </div>
 
-        <span class="vue-layer-resize" v-if="resize && type < 3"></span>
+        <span class="vue-layer-resize" v-if="resize && type < 3 && !this.layerWin.isMax"></span>
     </div>
 </template>
 
@@ -103,6 +103,12 @@
             }
         },
         methods: {
+            min() {
+                this.$emit('min');
+            },
+            maxOrRestore() {
+                this.$emit('maxOrRestore', this.layerWin.isMax, this.layerWin.isMin);
+            },
             fnBtn(index) {
                 this.$emit(`btn${index + 1}`, this.index);
             },

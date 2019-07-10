@@ -31,13 +31,15 @@
     export default {
         name: 'app',
         mounted() {
-            this.$layer.msg('你好', function() {
-                console.log('end');
-            });
-            // this.$layer.open({
-            //     type: 0,
-            //     content: '你好'
+            // this.$layer.msg('你好', function() {
+            //     console.log('end');
             // });
+            this.$layer.open({
+                type: 1,
+                minBtn: true,
+                maxBtn: true,
+                content: '<div style="width:400px;height:200px;">你好</div>'
+            });
         },
         methods: {
             showAlert() {

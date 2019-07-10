@@ -123,6 +123,7 @@ export default {
                     instances[prop].layer.$el.style.left = moveX + 'px';
                     instances[prop].layer.$el.style.top = moveY + 'px';
                 }
+
                 if (instances[prop].layer.drag.canResize) {
                     let resizeX = instances[prop].layer.drag.rw + (e.clientX - instances[prop].layer.drag.rx);
                     let resizeY = instances[prop].layer.drag.rh + (e.clientY - instances[prop].layer.drag.ry);
@@ -181,7 +182,15 @@ export default {
                     data: {
                         ...config,
                         index: this.index,
-                        drag: {mx: 0, my: 0, rx: 0, ry: 0, rw: 0, rh: 0, canMove: false, canResize: false}
+                        drag: {mx: 0, my: 0, rx: 0, ry: 0, rw: 0, rh: 0, canMove: false, canResize: false},
+                        layerWin: {
+                            isMax: false,
+                            isMin: false,
+                            width: 0,
+                            height: 0,
+                            left: 0,
+                            top: 0
+                        }
                     },
                     mounted() {
                         let moveElem, resizeElem;
@@ -205,6 +214,7 @@ export default {
                                 };
                             }
                         }
+
                         if (this.resize && this.type < 2) {
                             resizeElem = this.$el.querySelector('.vue-layer-resize');
 
@@ -276,6 +286,50 @@ export default {
                     config.cancel && config.cancel();
 
                     this.close(index);
+                });
+
+                // 窗口控制
+                instance.layer.$on('min', () => {
+                    // 记录winData
+                    instance.layer.layerWin.isMin = true;
+                    instance.layer.layerWin.top = instance.layer.$el.style.top;
+                    instance.layer.layerWin.left = instance.layer.$el.style.left;
+                    instance.layer.layerWin.width = instance.layer.$el.offsetWidth + 'px';
+                    instance.layer.layerWin.height = instance.layer.$el.offsetHeight + 'px';
+
+                    instance.layer.$el.style.top = document.documentElement.clientHeight - 42 + 'px';
+                    instance.layer.$el.style.left = 0;
+                    instance.layer.$el.style.width = '180px';
+                    instance.layer.$el.style.height = '42px';
+                    instance.layer.$el.style.position = 'fixed';
+                    instance.layer.$el.style.overflow = 'hidden';
+                });
+                instance.layer.$on('maxOrRestore', (winMax, winMin) => {
+                    if (winMax) {
+                        instance.layer.layerWin.isMax = false;
+                        instance.layer.$el.style.top = instance.layer.layerWin.top;
+                        instance.layer.$el.style.left = instance.layer.layerWin.left;
+                        instance.layer.$el.style.width = instance.layer.layerWin.width;
+                        instance.layer.$el.style.height = instance.layer.layerWin.height;
+                    } else if (winMin) {
+                        instance.layer.layerWin.isMin = false;
+                        instance.layer.$el.style.top = instance.layer.layerWin.top;
+                        instance.layer.$el.style.left = instance.layer.layerWin.left;
+                        instance.layer.$el.style.width = instance.layer.layerWin.width;
+                        instance.layer.$el.style.height = instance.layer.layerWin.height;
+                    } else {
+                        // 记录winData
+                        instance.layer.layerWin.isMax = true;
+                        instance.layer.layerWin.top = instance.layer.$el.style.top;
+                        instance.layer.layerWin.left = instance.layer.$el.style.left;
+                        instance.layer.layerWin.width = instance.layer.$el.offsetWidth + 'px';
+                        instance.layer.layerWin.height = instance.layer.$el.offsetHeight + 'px';
+
+                        instance.layer.$el.style.top = 0;
+                        instance.layer.$el.style.left = 0;
+                        instance.layer.$el.style.width = document.documentElement.clientWidth + 'px';
+                        instance.layer.$el.style.height = document.documentElement.clientHeight + 'px';
+                    }
                 });
 
                 // 自动关闭
