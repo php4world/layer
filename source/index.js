@@ -1,4 +1,4 @@
-import './prototype';
+// import './prototype';
 import './assets/scss/default.scss';
 import Layer from './layer.vue';
 import Shade from './shade.vue';
@@ -36,6 +36,13 @@ export default {
             maxWidth: 360,
             skin: ''
         }, options);
+
+        function one(el, eventType, callback) {
+            el.addEventListener(eventType, function fn(e) {
+                e.target.removeEventListener(e.type, fn);
+                return callback(e);
+            });
+        }
 
         // 设置位置
         function offset(el, settings) {
@@ -86,7 +93,7 @@ export default {
         }
         // 打开动画
         function animOpen(el, anim) {
-            el.one('animationend', () => {
+            one(el, 'animationend', () => {
                 el.classList.remove('vue-layer-anim', `vue-layer-anim-0${anim}`);
             });
             el.classList.add('vue-layer-anim', `vue-layer-anim-0${anim}`);
@@ -372,7 +379,7 @@ export default {
 
                 if (instances[index].layer.outAnim) {
                     // 关闭动画
-                    instances[index].layer.$el.one('animationend', () => {
+                    one(instances[index].layer.$el, 'animationend', () => {
                         document.body.removeChild(instances[index].layer.$el);
 
                         destroy();

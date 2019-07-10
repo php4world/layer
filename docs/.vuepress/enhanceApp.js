@@ -1,4 +1,4 @@
-import Layer from '@php4world/layer';
+import Layer from '../../source/index.js';
 import './bootstrap.min.css';
 
 export default ({
