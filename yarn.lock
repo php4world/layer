@@ -730,9 +730,9 @@
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
 "@php4world/layer@^0.1.10":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@php4world/layer/-/layer-0.1.11.tgz#eec72e8a8073c85695fcb007841877baf147f6b8"
-  integrity sha512-Ef7v+jWO6Ncjv5lM3GjPqwyoR1gya6lFRi1HHb7z/S4lo9jEfZ1Q5aPWuO8k2CjnzdOClYG1wY2m7zO9aGPA2A==
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@php4world/layer/-/layer-0.1.12.tgz#a1fda69582c2db2740ae003805b59689e16c1991"
+  integrity sha512-OCeh3QCFD5ARH4clV37HDvuPQEsi+sirzPJ2MDiCLSyjj22DXuoAxzvLa2bhbsIPcCrOpF/k0sPW8BgKZencAg==
   dependencies:
     "@php4world/layer" "^0.1.10"
     core-js "^2.6.5"
