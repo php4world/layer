@@ -30,8 +30,7 @@ export default {
             content: '',
             btn: '',
             btnAlign: 'r',
-            minBtn: false,
-            maxBtn: false,
+            maxmin: false,
             closeBtn: 1,
             zIndex: 19920215,
             maxWidth: 360,
@@ -195,7 +194,7 @@ export default {
                     mounted() {
                         let moveElem, resizeElem;
 
-                        if (this.move && this.type < 2) {
+                        if (this.move && this.type < 3) {
                             moveElem = this.$el.querySelector(this.move);
 
                             if (moveElem) {
@@ -215,7 +214,7 @@ export default {
                             }
                         }
 
-                        if (this.resize && this.type < 2) {
+                        if (this.resize && this.type < 3) {
                             resizeElem = this.$el.querySelector('.vue-layer-resize');
 
                             resizeElem.onmousedown = (e) => {

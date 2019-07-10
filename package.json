@@ -1,6 +1,6 @@
 {
   "name": "@php4world/layer",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "Vue layer",
   "keyword": "vue-layer",
   "author": "php4world",
@@ -22,7 +22,7 @@
     "source/prototype.js"
   ],
   "dependencies": {
-    "@php4world/layer": "^0.1.0",
+    "@php4world/layer": "^0.1.8",
     "core-js": "^2.6.5",
     "vue": "^2.6.10"
   },
