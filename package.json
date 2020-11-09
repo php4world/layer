@@ -23,7 +23,7 @@
   ],
   "dependencies": {
     "@php4world/layer": "^0.1.10",
-    "core-js": "^2.6.5",
+    "core-js": "^3.7.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {
